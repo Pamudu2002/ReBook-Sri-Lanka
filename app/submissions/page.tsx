@@ -188,7 +188,7 @@ export default function SubmissionsPage() {
           <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded font-medium transition-colors ${
+              className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                 filter === 'all'
                   ? 'bg-primary-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -198,7 +198,7 @@ export default function SubmissionsPage() {
             </button>
             <button
               onClick={() => setFilter('open')}
-              className={`px-4 py-2 rounded font-medium transition-colors ${
+              className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                 filter === 'open'
                   ? 'bg-green-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -208,7 +208,7 @@ export default function SubmissionsPage() {
             </button>
             <button
               onClick={() => setFilter('in-progress')}
-              className={`px-4 py-2 rounded font-medium transition-colors ${
+              className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                 filter === 'in-progress'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -218,7 +218,7 @@ export default function SubmissionsPage() {
             </button>
             <button
               onClick={() => setFilter('completed')}
-              className={`px-4 py-2 rounded font-medium transition-colors ${
+              className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                 filter === 'completed'
                   ? 'bg-gray-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -229,12 +229,18 @@ export default function SubmissionsPage() {
           </div>
 
           {/* District Filter */}
-          <div className="flex items-center gap-3">
-            <label className="text-sm font-semibold text-gray-700">{t('district')}:</label>
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              {t('district')}:
+            </label>
             <select
               value={selectedDistrict}
               onChange={(e) => setSelectedDistrict(e.target.value)}
-              className="px-4 py-2 rounded border border-gray-300 bg-white text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="px-4 py-2 rounded-lg border-2 border-gray-200 bg-white text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 hover:border-gray-300 transition-all cursor-pointer shadow-sm"
             >
               <option value="all">{t('allDistricts')}</option>
               {districts.map(district => (
@@ -244,8 +250,11 @@ export default function SubmissionsPage() {
             {selectedDistrict !== 'all' && (
               <button
                 onClick={() => setSelectedDistrict('all')}
-                className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1 hover:gap-1.5 transition-all"
               >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
                 {t('clearFilter')}
               </button>
             )}

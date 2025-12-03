@@ -134,7 +134,7 @@ export default function DonorDashboard() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 pt-20">
         <Navbar />
         <Loading size="lg" text={t('loading')} />
       </div>
@@ -142,7 +142,7 @@ export default function DonorDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-20">
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">

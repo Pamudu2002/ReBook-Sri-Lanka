@@ -12,41 +12,96 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-blue-50 py-16 md:py-24">
-        <div className="container mx-auto px-4">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0 top-20">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/85 to-blue-900/90 z-10"></div>
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073')",
+            }}
+          ></div>
+        </div>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-20 py-32 mt-20">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-white/90 text-sm font-medium">Empowering Education in Sri Lanka</span>
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
               {t('heroTitle')}
             </h1>
-            <p className="text-base md:text-xl text-gray-600 mb-8 md:mb-12 px-4">
+            
+            {/* Subtitle */}
+            <p className="text-lg md:text-xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed">
               {t('heroSubtitle')}
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-3xl mx-auto">
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/submissions"
-                className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-4 rounded-lg text-base font-semibold transition-all shadow-sm hover:shadow-md"
+                className="group relative px-8 py-4 bg-white text-blue-600 rounded-lg text-base font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 w-full sm:w-auto"
               >
-                Browse Requirements
+                <span className="relative z-10">Browse Requirements</span>
               </Link>
               <Link
                 href="/student/submit"
-                className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-4 rounded-lg text-base font-semibold transition-all shadow-sm hover:shadow-md"
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white border-2 border-white/20 rounded-lg text-base font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 w-full sm:w-auto"
               >
                 {t('studentCTA')}
               </Link>
               <Link
                 href="/donor/register"
-                className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-4 rounded-lg text-base font-semibold transition-all shadow-sm hover:shadow-md"
+                className="px-8 py-4 bg-transparent hover:bg-white/10 text-white border-2 border-white/40 hover:border-white rounded-lg text-base font-semibold transition-all w-full sm:w-auto"
               >
                 {t('donorCTA')}
               </Link>
             </div>
+
+            {/* Trust Indicators */}
+            <div className="mt-16 flex flex-wrap justify-center gap-8 text-white/80">
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm font-medium">Verified Students</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm font-medium">100% Transparent</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm font-medium">Secure Platform</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+          <div className="flex flex-col items-center gap-2 text-white/60">
+            <span className="text-xs font-medium">Scroll to explore</span>
+            <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white relative z-10">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">

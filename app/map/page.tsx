@@ -84,7 +84,7 @@ export default function MapPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-20">
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
@@ -131,12 +131,12 @@ export default function MapPage() {
             <Loading size="lg" text={t('loading')} />
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow-md p-4">
-            <div style={{ height: '600px', width: '100%' }}>
+          <div className="bg-white rounded-lg shadow-md p-4 relative z-0">
+            <div className="relative z-0" style={{ height: '600px', width: '100%' }}>
               <MapContainer
                 center={[7.8731, 80.7718]}
                 zoom={8}
-                style={{ height: '100%', width: '100%' }}
+                style={{ height: '100%', width: '100%', zIndex: 0 }}
                 scrollWheelZoom={true}
               >
                 <TileLayer
@@ -185,6 +185,16 @@ export default function MapPage() {
         }
         .leaflet-popup-content {
           margin: 0 !important;
+        }
+        .leaflet-container {
+          z-index: 0 !important;
+        }
+        .leaflet-pane {
+          z-index: auto !important;
+        }
+        .leaflet-top,
+        .leaflet-bottom {
+          z-index: 10 !important;
         }
       `}</style>
     </div>

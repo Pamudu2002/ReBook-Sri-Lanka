@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
+import TermsModal from '@/components/TermsModal';
 
 interface Item {
   itemName: string;
@@ -16,6 +17,8 @@ export default function StudentSubmit() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const [formData, setFormData] = useState({
     studentName: '',
@@ -64,6 +67,13 @@ export default function StudentSubmit() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Show terms modal if not yet accepted
+    if (!termsAccepted) {
+      setShowTermsModal(true);
+      return;
+    }
+    
     setLoading(true);
     setMessage('');
 
@@ -91,6 +101,20 @@ export default function StudentSubmit() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAcceptTerms = () => {
+    setTermsAccepted(true);
+    setShowTermsModal(false);
+    // Trigger form submission after accepting terms
+    setTimeout(() => {
+      const form = document.querySelector('form') as HTMLFormElement;
+      if (form) form.requestSubmit();
+    }, 100);
+  };
+
+  const handleDeclineTerms = () => {
+    setShowTermsModal(false);
   };
 
   return (
@@ -354,6 +378,18 @@ export default function StudentSubmit() {
           </form>
         </div>
       </div>
+
+      {/* Terms and Conditions Modal */}
+      <TermsModal
+        isOpen={showTermsModal}
+        onClose={handleDeclineTerms}
+        onAccept={handleAcceptTerms}
+        title={t('studentTermsTitle')}
+        content={t('studentTermsContent')}
+        warning={t('studentTermsWarning')}
+        acceptText={t('acceptTerms')}
+        declineText={t('declineTerms')}
+      />
     </div>
   );
 }

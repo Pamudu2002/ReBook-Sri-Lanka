@@ -5,12 +5,15 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
+import TermsModal from '@/components/TermsModal';
 
 export default function DonorRegister() {
   const { t } = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -37,6 +40,13 @@ export default function DonorRegister() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Show terms modal if not yet accepted
+    if (!termsAccepted) {
+      setShowTermsModal(true);
+      return;
+    }
+    
     setLoading(true);
     setMessage('');
 
@@ -66,6 +76,20 @@ export default function DonorRegister() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAcceptTerms = () => {
+    setTermsAccepted(true);
+    setShowTermsModal(false);
+    // Trigger form submission after accepting terms
+    setTimeout(() => {
+      const form = document.querySelector('form') as HTMLFormElement;
+      if (form) form.requestSubmit();
+    }, 100);
+  };
+
+  const handleDeclineTerms = () => {
+    setShowTermsModal(false);
   };
 
   return (
@@ -234,6 +258,18 @@ export default function DonorRegister() {
           </p>
         </div>
       </div>
+
+      {/* Terms and Conditions Modal */}
+      <TermsModal
+        isOpen={showTermsModal}
+        onClose={handleDeclineTerms}
+        onAccept={handleAcceptTerms}
+        title={t('donorTermsTitle')}
+        content={t('donorTermsContent')}
+        warning={t('donorTermsWarning')}
+        acceptText={t('agreeToTerms')}
+        declineText={t('declineTerms')}
+      />
     </div>
   );
 }

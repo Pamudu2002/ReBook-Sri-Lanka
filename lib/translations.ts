@@ -52,6 +52,19 @@ export const translations = {
     submitRequirement: 'Submit Requirement',
     requirementSubmitted: 'Requirement submitted successfully! It will be reviewed by our team.',
     
+    // Terms and Conditions - Student
+    studentTermsTitle: 'Terms and Conditions',
+    studentTermsContent: 'By submitting this requirement, you confirm that all information provided is accurate and truthful. Misuse of this platform or submission of false information is strictly prohibited and may result in legal action. This platform is designed to help genuine students affected by floods. Please ensure your submission is legitimate.',
+    studentTermsWarning: '⚠️ Warning: Misuse of this platform may result in legal consequences.',
+    acceptTerms: 'I Accept Terms and Conditions',
+    declineTerms: 'Decline',
+    
+    // Terms and Conditions - Donor
+    donorTermsTitle: 'Donor Terms and Conditions',
+    donorTermsContent: 'By registering as a donor, you agree to use the contact information provided by students solely for the purpose of helping them with their educational needs. Misuse of student contact information, harassment, or any fraudulent activity is strictly prohibited and will result in immediate account suspension and legal action. We trust you to maintain the integrity and safety of this platform.',
+    donorTermsWarning: '⚠️ Warning: Misuse of student information will result in legal consequences and account termination.',
+    agreeToTerms: 'I Agree to Terms and Conditions',
+    
     // Priority Levels
     high: 'High',
     medium: 'Medium',
@@ -213,6 +226,19 @@ export const translations = {
     submitRequirement: 'අවශ්‍යතාව ඉදිරිපත් කරන්න',
     requirementSubmitted: 'අවශ්‍යතාව සාර්ථකව ඉදිරිපත් කරන ලදී! එය අපගේ කණ්ඩායම විසින් සමාලෝචනය කරනු ලැබේ.',
     
+    // Terms and Conditions - Student
+    studentTermsTitle: 'නියමයන් සහ කොන්දේසි',
+    studentTermsContent: 'මෙම අවශ්‍යතාව ඉදිරිපත් කිරීමෙන්, ඔබ සපයා ඇති සියලුම තොරතුරු නිවැරදි සහ සත්‍ය බව තහවුරු කරයි. මෙම වේදිකාව අනිසි ලෙස භාවිතා කිරීම හෝ ව්‍යාජ තොරතුරු ඉදිරිපත් කිරීම දැඩි ලෙස තහනම් වන අතර එය නීතිමය ක්‍රියාමාර්ගයට තුඩු දිය හැකිය. මෙම වේදිකාව නිර්මාණය කර ඇත්තේ ගංවතුරෙන් පීඩාවට පත් සැබෑ සිසුන්ට උපකාර කිරීම සඳහා ය. කරුණාකර ඔබගේ ඉදිරිපත් කිරීම නීත්‍යානුකූල බව සහතික කර ගන්න.',
+    studentTermsWarning: '⚠️ අවවාදයයි: මෙම වේදිකාව අනිසි ලෙස භාවිතා කිරීම නීතිමය ප්‍රතිවිපාකවලට තුඩු දිය හැකිය.',
+    acceptTerms: 'මම නියමයන් සහ කොන්දේසි පිළිගනිමි',
+    declineTerms: 'ප්‍රතික්ෂේප කරන්න',
+    
+    // Terms and Conditions - Donor
+    donorTermsTitle: 'පරිත්‍යාගශීලී නියමයන් සහ කොන්දේසි',
+    donorTermsContent: 'පරිත්‍යාගශීලියෙකු ලෙස ලියාපදිංචි වීමෙන්, ඔබ සිසුන් විසින් සපයනු ලබන සම්බන්ධතා තොරතුරු භාවිතා කිරීමට එකඟ වන්නේ ඔවුන්ගේ අධ්‍යාපනික අවශ්‍යතා සඳහා උපකාර කිරීමේ අරමුණ සඳහා පමණි. සිසුන්ගේ සම්බන්ධතා තොරතුරු අනිසි ලෙස භාවිතා කිරීම, හිරිහැර කිරීම හෝ ඕනෑම වංචනික ක්‍රියාකාරකමක් දැඩි ලෙස තහනම් වන අතර එය ක්ෂණික ගිණුම් අත්හිටුවීමට සහ නීතිමය ක්‍රියාමාර්ගයට තුඩු දෙනු ඇත. මෙම වේදිකාවේ අයත්තාව සහ ආරක්ෂාව පවත්වා ගැනීමට අපි ඔබව විශ්වාස කරමු.',
+    donorTermsWarning: '⚠️ අවවාදයයි: සිසුන්ගේ තොරතුරු අනිසි ලෙස භාවිතා කිරීම නීතිමය ප්‍රතිවිපාක සහ ගිණුම් අවසන් කිරීමට තුඩු දෙනු ඇත.',
+    agreeToTerms: 'මම නියමයන් සහ කොන්දේසි වලට එකඟ වෙමි',
+    
     // Priority Levels
     high: 'ඉහළ',
     medium: 'මධ්‍යම',
@@ -373,6 +399,19 @@ export const translations = {
     additionalNotes: 'கூடுதல் குறிப்புகள்',
     submitRequirement: 'தேவையை சமர்ப்பிக்கவும்',
     requirementSubmitted: 'தேவை வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது! இது எங்கள் குழுவால் மதிப்பாய்வு செய்யப்படும்.',
+    
+    // Terms and Conditions - Student
+    studentTermsTitle: 'விதிமுறைகள் மற்றும் நிபந்தனைகள்',
+    studentTermsContent: 'இந்த தேவையை சமர்ப்பிப்பதன் மூலம், வழங்கப்பட்ட அனைத்து தகவல்களும் துல்லியமானவை மற்றும் உண்மையானவை என்பதை நீங்கள் உறுதிப்படுத்துகிறீர்கள். இந்த தளத்தை தவறாகப் பயன்படுத்துதல் அல்லது தவறான தகவல்களை சமர்ப்பிப்பது கண்டிப்பாக தடைசெய்யப்பட்டுள்ளது மற்றும் சட்ட நடவடிக்கைக்கு வழிவகுக்கும். இந்த தளம் வெள்ளத்தால் பாதிக்கப்பட்ட உண்மையான மாணவர்களுக்கு உதவ வடிவமைக்கப்பட்டுள்ளது. உங்கள் சமர்ப்பிப்பு சட்டபூர்வமானது என்பதை உறுதிசெய்யவும்.',
+    studentTermsWarning: '⚠️ எச்சரிக்கை: இந்த தளத்தை தவறாகப் பயன்படுத்துவது சட்ட விளைவுகளுக்கு வழிவகுக்கும்.',
+    acceptTerms: 'நான் விதிமுறைகள் மற்றும் நிபந்தனைகளை ஏற்கிறேன்',
+    declineTerms: 'நிராகரி',
+    
+    // Terms and Conditions - Donor
+    donorTermsTitle: 'நன்கொடையாளர் விதிமுறைகள் மற்றும் நிபந்தனைகள்',
+    donorTermsContent: 'நன்கொடையாளராக பதிவு செய்வதன் மூலம், மாணவர்களின் கல்வித் தேவைகளுக்கு உதவும் நோக்கத்திற்காக மட்டுமே மாணவர்களால் வழங்கப்படும் தொடர்புத் தகவலைப் பயன்படுத்த ஒப்புக்கொள்கிறீர்கள். மாணவர் தொடர்புத் தகவலை தவறாகப் பயன்படுத்துதல், துன்புறுத்தல் அல்லது எந்தவொரு மோசடி நடவடிக்கையும் கண்டிப்பாக தடைசெய்யப்பட்டுள்ளது மற்றும் உடனடி கணக்கு இடைநீக்கம் மற்றும் சட்ட நடவடிக்கைக்கு வழிவகுக்கும். இந்த தளத்தின் ஒருமைப்பாடு மற்றும் பாதுகாப்பை பராமரிக்க நாங்கள் உங்களை நம்புகிறோம்.',
+    donorTermsWarning: '⚠️ எச்சரிக்கை: மாணவர் தகவலை தவறாகப் பயன்படுத்துவது சட்ட விளைவுகள் மற்றும் கணக்கு நிறுத்தத்திற்கு வழிவகுக்கும்.',
+    agreeToTerms: 'நான் விதிமுறைகள் மற்றும் நிபந்தனைகளுக்கு ஒப்புக்கொள்கிறேன்',
     
     // Priority Levels
     high: 'உயர்',

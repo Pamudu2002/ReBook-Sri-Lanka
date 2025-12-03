@@ -184,11 +184,11 @@ export default function SubmissionsPage() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
+        <div className="bg-white p-4 rounded shadow-sm mb-6">
           <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              className={`px-4 py-2 rounded font-medium transition-colors ${
                 filter === 'all'
                   ? 'bg-primary-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -198,7 +198,7 @@ export default function SubmissionsPage() {
             </button>
             <button
               onClick={() => setFilter('open')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              className={`px-4 py-2 rounded font-medium transition-colors ${
                 filter === 'open'
                   ? 'bg-green-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -208,7 +208,7 @@ export default function SubmissionsPage() {
             </button>
             <button
               onClick={() => setFilter('in-progress')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              className={`px-4 py-2 rounded font-medium transition-colors ${
                 filter === 'in-progress'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -218,7 +218,7 @@ export default function SubmissionsPage() {
             </button>
             <button
               onClick={() => setFilter('completed')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              className={`px-4 py-2 rounded font-medium transition-colors ${
                 filter === 'completed'
                   ? 'bg-gray-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -234,7 +234,7 @@ export default function SubmissionsPage() {
             <select
               value={selectedDistrict}
               onChange={(e) => setSelectedDistrict(e.target.value)}
-              className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="px-4 py-2 rounded border border-gray-300 bg-white text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">{t('allDistricts')}</option>
               {districts.map(district => (
@@ -254,7 +254,7 @@ export default function SubmissionsPage() {
 
         {/* Requirements Grid */}
         {filteredRequirements.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-12 text-center">
+          <div className="bg-white rounded shadow-md p-12 text-center">
             <svg className="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
             </svg>
@@ -265,7 +265,7 @@ export default function SubmissionsPage() {
             {filteredRequirements.map((req) => (
               <div
                 key={req._id}
-                className="bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col"
+                className="bg-white rounded shadow hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col"
               >
                 {/* Card Header */}
                 <div className="bg-blue-50 border-b border-blue-100 p-3">
@@ -342,7 +342,7 @@ export default function SubmissionsPage() {
       {/* Detail Modal */}
       {selectedRequirement && (
         <div className="fixed inset-0 bg-black/20 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-lg w-full max-h-[85vh] overflow-hidden shadow-lg">
+          <div className="bg-white rounded max-w-lg w-full max-h-[85vh] overflow-hidden shadow-lg">
             {/* Header */}
             <div className="bg-blue-50 border-b border-blue-100 px-5 py-4">
               <div className="flex justify-between items-start">
@@ -491,7 +491,7 @@ export default function SubmissionsPage() {
                 {!user && (selectedRequirement.status === 'open' || selectedRequirement.status === 'approved') && (
                   <button
                     onClick={() => router.push('/donor/login')}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors"
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded text-sm font-semibold transition-colors"
                   >
                     {t('loginToHelp')}
                   </button>

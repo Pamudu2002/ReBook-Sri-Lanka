@@ -156,6 +156,8 @@ export const translations = {
     districtStatistics: 'District Statistics',
     legend: 'Legend',
     noRequirements: 'No Requirements',
+    allDistricts: 'All Districts',
+    clearFilter: 'Clear Filter',
   },
   
   si: {
@@ -311,10 +313,12 @@ export const translations = {
     
     // District Map
     districtMap: 'දිස්ත්‍රික්ක සිතියම',
-    districtMapDesc: 'ශ්‍රී ලංකාවේ දිස්ත්‍රික්ක 25 හරහා අවශ්‍යතා සහ සම්පූර්ණ කිරීමේ සංඛ්‍යාලේඛන බලන්න',
+    districtMapDesc: 'ශ්‍රී ලංකාවේ දිස්ත්‍රික්ක 25 පුරා අවශ්‍යතා සහ සම්පූර්ණ කිරීමේ සංඛ්‍යාලේඛන බලන්න',
     districtStatistics: 'දිස්ත්‍රික්ක සංඛ්‍යාලේඛන',
     legend: 'පැහැදිලි කිරීම',
     noRequirements: 'අවශ්‍යතා නැත',
+    allDistricts: 'සියලුම දිස්ත්‍රික්ක',
+    clearFilter: 'පෙරහන ඉවත් කරන්න',
   },
   
   ta: {
@@ -474,6 +478,8 @@ export const translations = {
     districtStatistics: 'மாவட்ட புள்ளிவிவரங்கள்',
     legend: 'குறியீடு',
     noRequirements: 'தேவைகள் இல்லை',
+    allDistricts: 'அனைத்து மாவட்டங்கள்',
+    clearFilter: 'வடிப்பானை அழி',
   },
 };
 

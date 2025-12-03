@@ -36,7 +36,16 @@ export default function SubmissionsPage() {
   const [requirements, setRequirements] = useState<Requirement[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'open' | 'in-progress' | 'completed'>('all');
+  const [selectedDistrict, setSelectedDistrict] = useState<string>('all');
   const [selectedRequirement, setSelectedRequirement] = useState<Requirement | null>(null);
+
+  const districts = [
+    'Colombo', 'Gampaha', 'Kalutara', 'Kandy', 'Matale', 'Nuwara Eliya',
+    'Galle', 'Matara', 'Hambantota', 'Jaffna', 'Kilinochchi', 'Mannar',
+    'Vavuniya', 'Mullaitivu', 'Batticaloa', 'Ampara', 'Trincomalee',
+    'Kurunegala', 'Puttalam', 'Anuradhapura', 'Polonnaruwa', 'Badulla',
+    'Monaragala', 'Ratnapura', 'Kegalle'
+  ];
 
   useEffect(() => {
     fetchRequirements();
@@ -89,10 +98,22 @@ export default function SubmissionsPage() {
   };
 
   const filteredRequirements = requirements.filter(req => {
-    if (filter === 'all') return true;
-    // Treat 'approved' status as 'open' for filtering
-    if (filter === 'open') return req.status === 'open' || req.status === 'approved';
-    return req.status === filter;
+    // Status filter
+    if (filter !== 'all') {
+      if (filter === 'open' && !(req.status === 'open' || req.status === 'approved')) {
+        return false;
+      }
+      if (filter !== 'open' && req.status !== filter) {
+        return false;
+      }
+    }
+    
+    // District filter
+    if (selectedDistrict !== 'all' && req.district !== selectedDistrict) {
+      return false;
+    }
+    
+    return true;
   });
 
   const getStatusBadge = (status: string) => {
@@ -142,47 +163,72 @@ export default function SubmissionsPage() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-2 mb-6 bg-white p-4 rounded-lg shadow-sm">
-          <button
-            onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filter === 'all'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {t('allSubmissions')} ({requirements.length})
-          </button>
-          <button
-            onClick={() => setFilter('open')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filter === 'open'
-                ? 'bg-green-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {t('openStatus')} ({requirements.filter(r => r.status === 'open' || r.status === 'approved').length})
-          </button>
-          <button
-            onClick={() => setFilter('in-progress')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filter === 'in-progress'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {t('inProgressStatus')} ({requirements.filter(r => r.status === 'in-progress').length})
-          </button>
-          <button
-            onClick={() => setFilter('completed')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filter === 'completed'
-                ? 'bg-gray-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {t('completedStatus')} ({requirements.filter(r => r.status === 'completed').length})
-          </button>
+        <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
+          <div className="flex flex-wrap gap-2 mb-4">
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                filter === 'all'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {t('allSubmissions')} ({requirements.length})
+            </button>
+            <button
+              onClick={() => setFilter('open')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                filter === 'open'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {t('openStatus')} ({requirements.filter(r => r.status === 'open' || r.status === 'approved').length})
+            </button>
+            <button
+              onClick={() => setFilter('in-progress')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                filter === 'in-progress'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {t('inProgressStatus')} ({requirements.filter(r => r.status === 'in-progress').length})
+            </button>
+            <button
+              onClick={() => setFilter('completed')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                filter === 'completed'
+                  ? 'bg-gray-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {t('completedStatus')} ({requirements.filter(r => r.status === 'completed').length})
+            </button>
+          </div>
+
+          {/* District Filter */}
+          <div className="flex items-center gap-3">
+            <label className="text-sm font-semibold text-gray-700">{t('district')}:</label>
+            <select
+              value={selectedDistrict}
+              onChange={(e) => setSelectedDistrict(e.target.value)}
+              className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="all">{t('allDistricts')}</option>
+              {districts.map(district => (
+                <option key={district} value={district}>{district}</option>
+              ))}
+            </select>
+            {selectedDistrict !== 'all' && (
+              <button
+                onClick={() => setSelectedDistrict('all')}
+                className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+              >
+                {t('clearFilter')}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Requirements Grid */}

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
+import Loading from '@/components/Loading';
 import 'leaflet/dist/leaflet.css';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -126,8 +127,8 @@ export default function MapPage() {
 
         {/* Map */}
         {loading ? (
-          <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <p className="text-xl">{t('loading')}</p>
+          <div className="bg-white rounded-lg shadow-md">
+            <Loading size="lg" text={t('loading')} />
           </div>
         ) : (
           <div className="bg-white rounded-lg shadow-md p-4">

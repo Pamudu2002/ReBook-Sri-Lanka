@@ -19,8 +19,8 @@ export async function GET(request: NextRequest) {
       try {
         const decoded = jwt.verify(token, JWT_SECRET) as any;
         if (decoded.role === 'donor') {
-          // Verify donor exists and is verified
-          const donor = await Donor.findById(decoded.id);
+          // Verify donor exists and is verified (token uses 'userId' not 'id')
+          const donor = await Donor.findById(decoded.userId);
           if (donor && donor.isVerified) {
             isDonor = true;
           }

@@ -40,6 +40,10 @@ export default function SubmissionsPage() {
   const [filter, setFilter] = useState<'all' | 'open' | 'in-progress' | 'completed'>('all');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('all');
   const [selectedRequirement, setSelectedRequirement] = useState<Requirement | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const itemsPerPage = 12;
   const [showAlert, setShowAlert] = useState(false);
   const [alertConfig, setAlertConfig] = useState<{
     title: string;
@@ -57,19 +61,29 @@ export default function SubmissionsPage() {
 
   useEffect(() => {
     fetchRequirements();
-  }, [user]);
+  }, [user, currentPage, filter, selectedDistrict]);
 
   const fetchRequirements = async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem('token');
       const headers: HeadersInit = {};
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
       }
       
-      const response = await fetch('/api/requirements/browse', { headers });
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: itemsPerPage.toString(),
+        status: filter,
+        district: selectedDistrict
+      });
+      
+      const response = await fetch(`/api/requirements/browse?${params}`, { headers });
       const data = await response.json();
       setRequirements(data.requirements || []);
+      setTotalPages(data.pagination?.totalPages || 1);
+      setTotalCount(data.pagination?.totalCount || 0);
     } catch (error) {
       console.error('Error fetching requirements:', error);
     } finally {
@@ -120,24 +134,8 @@ export default function SubmissionsPage() {
     }
   };
 
-  const filteredRequirements = requirements.filter(req => {
-    // Status filter
-    if (filter !== 'all') {
-      if (filter === 'open' && !(req.status === 'open' || req.status === 'approved')) {
-        return false;
-      }
-      if (filter !== 'open' && req.status !== filter) {
-        return false;
-      }
-    }
-    
-    // District filter
-    if (selectedDistrict !== 'all' && req.district !== selectedDistrict) {
-      return false;
-    }
-    
-    return true;
-  });
+  // Filtering now handled by API, so we use requirements directly
+  const filteredRequirements = requirements;
 
   const getStatusBadge = (status: string) => {
     // Normalize 'approved' to 'open' for display
@@ -187,44 +185,44 @@ export default function SubmissionsPage() {
         <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
           <div className="flex flex-wrap gap-2 mb-4">
             <button
-              onClick={() => setFilter('all')}
+              onClick={() => { setFilter('all'); setCurrentPage(1); }}
               className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                 filter === 'all'
                   ? 'bg-primary-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('allSubmissions')} ({requirements.length})
+              {t('allSubmissions')} ({filter === 'all' ? totalCount : ''})
             </button>
             <button
-              onClick={() => setFilter('open')}
+              onClick={() => { setFilter('open'); setCurrentPage(1); }}
               className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                 filter === 'open'
                   ? 'bg-green-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('openStatus')} ({requirements.filter(r => r.status === 'open' || r.status === 'approved').length})
+              {t('openStatus')} ({filter === 'open' ? totalCount : ''})
             </button>
             <button
-              onClick={() => setFilter('in-progress')}
+              onClick={() => { setFilter('in-progress'); setCurrentPage(1); }}
               className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                 filter === 'in-progress'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('inProgressStatus')} ({requirements.filter(r => r.status === 'in-progress').length})
+              {t('inProgressStatus')} ({filter === 'in-progress' ? totalCount : ''})
             </button>
             <button
-              onClick={() => setFilter('completed')}
+              onClick={() => { setFilter('completed'); setCurrentPage(1); }}
               className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                 filter === 'completed'
                   ? 'bg-gray-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('completedStatus')} ({requirements.filter(r => r.status === 'completed').length})
+              {t('completedStatus')} ({filter === 'completed' ? totalCount : ''})
             </button>
           </div>
 
@@ -239,7 +237,7 @@ export default function SubmissionsPage() {
             </label>
             <select
               value={selectedDistrict}
-              onChange={(e) => setSelectedDistrict(e.target.value)}
+              onChange={(e) => { setSelectedDistrict(e.target.value); setCurrentPage(1); }}
               className="px-4 py-2 rounded-lg border-2 border-gray-200 bg-white text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 hover:border-gray-300 transition-all cursor-pointer shadow-sm"
             >
               <option value="all">{t('allDistricts')}</option>
@@ -249,7 +247,7 @@ export default function SubmissionsPage() {
             </select>
             {selectedDistrict !== 'all' && (
               <button
-                onClick={() => setSelectedDistrict('all')}
+                onClick={() => { setSelectedDistrict('all'); setCurrentPage(1); }}
                 className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1 hover:gap-1.5 transition-all"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -344,6 +342,65 @@ export default function SubmissionsPage() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-lg shadow-sm">
+            <div className="text-sm text-gray-600">
+              Showing {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, totalCount)} of {totalCount} results
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-2 rounded-lg border-2 border-gray-200 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <div className="flex items-center gap-1">
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNum;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+                  
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => setCurrentPage(pageNum)}
+                      className={`w-10 h-10 rounded-lg text-sm font-medium transition-all ${
+                        currentPage === pageNum
+                          ? 'bg-primary-600 text-white shadow-md'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
+              </div>
+              
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-2 rounded-lg border-2 border-gray-200 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
           </div>
         )}
       </div>

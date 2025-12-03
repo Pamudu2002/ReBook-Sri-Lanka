@@ -184,7 +184,7 @@ export default function SubmissionsPage() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="bg-white p-4 rounded shadow-sm mb-6">
+        <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
           <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => setFilter('all')}
@@ -274,7 +274,7 @@ export default function SubmissionsPage() {
             {filteredRequirements.map((req) => (
               <div
                 key={req._id}
-                className="bg-white rounded shadow hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col"
+                className="bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col"
               >
                 {/* Card Header */}
                 <div className="bg-blue-50 border-b border-blue-100 p-3">

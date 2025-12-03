@@ -196,6 +196,12 @@ export default function MapPage() {
         .leaflet-bottom {
           z-index: 10 !important;
         }
+        .leaflet-popup-pane {
+          z-index: 1000 !important;
+        }
+        .leaflet-popup {
+          z-index: 1000 !important;
+        }
       `}</style>
     </div>
   );

@@ -6,12 +6,18 @@ import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import TermsModal from '@/components/TermsModal';
+import Alert from '@/components/Alert';
 
 export default function DonorRegister() {
   const { t } = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertConfig, setAlertConfig] = useState<{
+    title: string;
+    message: string;
+    type: 'success' | 'error' | 'warning' | 'info';
+  }>({ title: '', message: '', type: 'info' });
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -48,10 +54,14 @@ export default function DonorRegister() {
     }
     
     setLoading(true);
-    setMessage('');
 
     if (formData.password !== formData.confirmPassword) {
-      setMessage(t('passwordMismatch'));
+      setAlertConfig({
+        title: t('error'),
+        message: t('passwordMismatch'),
+        type: 'error',
+      });
+      setShowAlert(true);
       setLoading(false);
       return;
     }
@@ -66,13 +76,28 @@ export default function DonorRegister() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(t('registrationPending'));
+        setAlertConfig({
+          title: t('success'),
+          message: t('registrationPending'),
+          type: 'success',
+        });
+        setShowAlert(true);
         setTimeout(() => router.push('/donor/login'), 3000);
       } else {
-        setMessage(data.message || 'Registration failed');
+        setAlertConfig({
+          title: t('error'),
+          message: data.message || 'Registration failed',
+          type: 'error',
+        });
+        setShowAlert(true);
       }
     } catch (error) {
-      setMessage(t('errorOccurred'));
+      setAlertConfig({
+        title: t('error'),
+        message: t('errorOccurred'),
+        type: 'error',
+      });
+      setShowAlert(true);
     } finally {
       setLoading(false);
     }
@@ -102,16 +127,6 @@ export default function DonorRegister() {
             {t('donorRegTitle')}
           </h1>
           <p className="text-gray-600 mb-6">{t('donorRegDesc')}</p>
-
-          {message && (
-            <div className={`p-4 rounded mb-6 ${
-              message.includes('successful') || message.includes('සාර්ථක') || message.includes('வெற்றி')
-                ? 'bg-green-100 text-green-800'
-                : 'bg-red-100 text-red-800'
-            }`}>
-              {message}
-            </div>
-          )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -269,6 +284,15 @@ export default function DonorRegister() {
         warning={t('donorTermsWarning')}
         acceptText={t('agreeToTerms')}
         declineText={t('declineTerms')}
+      />
+
+      {/* Custom Alert */}
+      <Alert
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
       />
     </div>
   );

@@ -128,6 +128,7 @@ export const translations = {
     maxLength: 'Maximum length is',
     
     // Error Messages
+    error: 'Error',
     errorOccurred: 'An error occurred',
     tryAgain: 'Please try again later',
     
@@ -154,6 +155,7 @@ export const translations = {
     commitmentSuccess: 'Successfully committed to help this student!',
     completionSuccess: 'Requirement marked as completed!',
     confirmCompletion: 'Are you sure you want to mark this as completed?',
+    areYouSure: 'Are you sure you want to proceed with this action?',
     
     // Donor Dashboard Extended
     myCommitmentsDesc: 'Students you\'ve committed to help',
@@ -302,6 +304,7 @@ export const translations = {
     maxLength: 'උපරිම දිග',
     
     // Error Messages
+    error: 'දෝෂයකි',
     errorOccurred: 'දෝෂයක් සිදු විය',
     tryAgain: 'කරුණාකර පසුව නැවත උත්සාහ කරන්න',
     
@@ -328,6 +331,7 @@ export const translations = {
     commitmentSuccess: 'මෙම ශිෂ්‍යයාට උදව් කිරීමට සාර්ථකව කැපවී ඇත!',
     completionSuccess: 'අවශ්‍යතාව සම්පූර්ණ ලෙස සලකුණු කර ඇත!',
     confirmCompletion: 'මෙය සම්පූර්ණ ලෙස සලකුණු කිරීමට ඔබට විශ්වාසද?',
+    areYouSure: 'ඔබට මෙම ක්‍රියාව සහ පුරොගමනය වීමට විශ්වාසද?',
     
     // Donor Dashboard Extended
     myCommitmentsDesc: 'ඔබ උදව් කිරීමට කැපවී ඇති සිසුන්',
@@ -476,6 +480,7 @@ export const translations = {
     maxLength: 'அதிகபட்ச நீளம்',
     
     // Error Messages
+    error: 'பிழை',
     errorOccurred: 'பிழை ஏற்பட்டது',
     tryAgain: 'பின்னர் மீண்டும் முயற்சிக்கவும்',
     
@@ -502,6 +507,7 @@ export const translations = {
     commitmentSuccess: 'இந்த மாணவருக்கு உதவ வெற்றிகரமாக உறுதியளித்துள்ளீர்கள்!',
     completionSuccess: 'தேவை முடிந்ததாக குறிக்கப்பட்டது!',
     confirmCompletion: 'இதை முடிந்ததாகக் குறிக்க விரும்புகிறீர்களா?',
+    areYouSure: 'இந்த செயலை தொடர விரும்புகிறீர்களா?',
     
     // Donor Dashboard Extended
     myCommitmentsDesc: 'நீங்கள் உதவ உறுதியளித்த மாணவர்கள்',

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import TermsModal from '@/components/TermsModal';
+import Alert from '@/components/Alert';
 
 interface Item {
   itemName: string;
@@ -16,7 +17,12 @@ export default function StudentSubmit() {
   const { t } = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertConfig, setAlertConfig] = useState<{
+    title: string;
+    message: string;
+    type: 'success' | 'error' | 'warning' | 'info';
+  }>({ title: '', message: '', type: 'info' });
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -75,7 +81,6 @@ export default function StudentSubmit() {
     }
     
     setLoading(true);
-    setMessage('');
 
     try {
       const response = await fetch('/api/requirements', {
@@ -91,13 +96,28 @@ export default function StudentSubmit() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(t('requirementSubmitted'));
+        setAlertConfig({
+          title: t('success'),
+          message: t('requirementSubmitted'),
+          type: 'success',
+        });
+        setShowAlert(true);
         setTimeout(() => router.push('/'), 3000);
       } else {
-        setMessage(data.message || 'Submission failed');
+        setAlertConfig({
+          title: t('error'),
+          message: data.message || 'Submission failed',
+          type: 'error',
+        });
+        setShowAlert(true);
       }
     } catch (error) {
-      setMessage(t('errorOccurred'));
+      setAlertConfig({
+        title: t('error'),
+        message: t('errorOccurred'),
+        type: 'error',
+      });
+      setShowAlert(true);
     } finally {
       setLoading(false);
     }
@@ -128,17 +148,7 @@ export default function StudentSubmit() {
           </h1>
           <p className="text-gray-600 mb-6">{t('studentFormDesc')}</p>
 
-          {message && (
-            <div className={`p-4 rounded mb-6 ${
-              message.includes('successfully') || message.includes('සාර්ථක') || message.includes('வெற்றி')
-                ? 'bg-green-100 text-green-800'
-                : 'bg-red-100 text-red-800'
-            }`}>
-              {message}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit}>
             {/* Student Information */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
@@ -389,6 +399,15 @@ export default function StudentSubmit() {
         warning={t('studentTermsWarning')}
         acceptText={t('acceptTerms')}
         declineText={t('declineTerms')}
+      />
+
+      {/* Custom Alert */}
+      <Alert
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
       />
     </div>
   );

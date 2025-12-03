@@ -6,6 +6,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
+import Alert from '@/components/Alert';
+import Confirm from '@/components/Confirm';
 
 interface Requirement {
   _id: string;
@@ -35,6 +37,14 @@ export default function DonorDashboard() {
   const [myCommitments, setMyCommitments] = useState<Requirement[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedRequirement, setSelectedRequirement] = useState<Requirement | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertConfig, setAlertConfig] = useState<{
+    title: string;
+    message: string;
+    type: 'success' | 'error' | 'warning' | 'info';
+  }>({ title: '', message: '', type: 'info' });
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
 
   useEffect(() => {
     if (!authLoading && (!user || user.role !== 'donor')) {
@@ -65,31 +75,45 @@ export default function DonorDashboard() {
   };
 
   const handleComplete = async (requirementId: string) => {
-    if (!confirm(t('confirmCompletion'))) {
-      return;
-    }
+    setConfirmAction(() => async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/requirements/${requirementId}/complete`, {
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
 
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`/api/requirements/${requirementId}/complete`, {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        fetchMyCommitments();
-        setSelectedRequirement(null);
-        alert(t('completionSuccess'));
-      } else {
-        const data = await response.json();
-        alert(data.message || 'Failed to complete');
+        if (response.ok) {
+          fetchMyCommitments();
+          setSelectedRequirement(null);
+          setAlertConfig({
+            title: t('success'),
+            message: t('completionSuccess'),
+            type: 'success',
+          });
+          setShowAlert(true);
+        } else {
+          const data = await response.json();
+          setAlertConfig({
+            title: t('error'),
+            message: data.message || 'Failed to complete',
+            type: 'error',
+          });
+          setShowAlert(true);
+        }
+      } catch (error) {
+        console.error('Error completing requirement:', error);
+        setAlertConfig({
+          title: t('error'),
+          message: t('errorOccurred'),
+          type: 'error',
+        });
+        setShowAlert(true);
       }
-    } catch (error) {
-      console.error('Error completing requirement:', error);
-      alert('An error occurred');
-    }
+    });
+    setShowConfirm(true);
   };
 
   const getStatusBadge = (status: string) => {
@@ -405,6 +429,27 @@ export default function DonorDashboard() {
           </div>
         </div>
       )}
+
+      {/* Custom Alert */}
+      <Alert
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
+      />
+
+      {/* Custom Confirm Dialog */}
+      <Confirm
+        isOpen={showConfirm}
+        onClose={() => setShowConfirm(false)}
+        onConfirm={() => confirmAction && confirmAction()}
+        title={t('confirmCompletion')}
+        message={t('areYouSure')}
+        confirmText={t('confirm')}
+        cancelText={t('cancel')}
+        type="warning"
+      />
     </div>
   );
 }

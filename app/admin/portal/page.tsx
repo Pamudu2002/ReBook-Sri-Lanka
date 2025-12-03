@@ -4,12 +4,18 @@ import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
+import Alert from '@/components/Alert';
 
 export default function AdminLogin() {
   const { t } = useLanguage();
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertConfig, setAlertConfig] = useState<{
+    title: string;
+    message: string;
+    type: 'success' | 'error' | 'warning' | 'info';
+  }>({ title: '', message: '', type: 'info' });
 
   const [formData, setFormData] = useState({
     email: '',
@@ -23,12 +29,16 @@ export default function AdminLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMessage('');
 
     try {
       await login(formData.email, formData.password, 'admin');
     } catch (error: any) {
-      setMessage(error.message || t('errorOccurred'));
+      setAlertConfig({
+        title: t('error'),
+        message: error.message || t('errorOccurred'),
+        type: 'error',
+      });
+      setShowAlert(true);
       setLoading(false);
     }
   };
@@ -43,12 +53,6 @@ export default function AdminLogin() {
             {t('adminLoginTitle')}
           </h1>
           <p className="text-gray-600 mb-6">{t('adminLoginDesc')}</p>
-
-          {message && (
-            <div className="p-4 rounded mb-6 bg-red-100 text-red-800">
-              {message}
-            </div>
-          )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -101,6 +105,15 @@ export default function AdminLogin() {
           </div>
         </div>
       </div>
+
+      {/* Custom Alert */}
+      <Alert
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
+      />
     </div>
   );
 }

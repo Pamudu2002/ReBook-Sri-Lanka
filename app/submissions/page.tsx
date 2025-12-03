@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
+import Alert from '@/components/Alert';
 
 interface Requirement {
   _id: string;
@@ -39,6 +40,12 @@ export default function SubmissionsPage() {
   const [filter, setFilter] = useState<'all' | 'open' | 'in-progress' | 'completed'>('all');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('all');
   const [selectedRequirement, setSelectedRequirement] = useState<Requirement | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertConfig, setAlertConfig] = useState<{
+    title: string;
+    message: string;
+    type: 'success' | 'error' | 'warning' | 'info';
+  }>({ title: '', message: '', type: 'info' });
 
   const districts = [
     'Colombo', 'Gampaha', 'Kalutara', 'Kandy', 'Matale', 'Nuwara Eliya',
@@ -87,14 +94,29 @@ export default function SubmissionsPage() {
 
       if (response.ok) {
         fetchRequirements();
-        alert(t('commitmentSuccess'));
+        setAlertConfig({
+          title: t('success'),
+          message: t('commitmentSuccess'),
+          type: 'success',
+        });
+        setShowAlert(true);
       } else {
         const data = await response.json();
-        alert(data.message || 'Failed to commit');
+        setAlertConfig({
+          title: t('error'),
+          message: data.message || 'Failed to commit',
+          type: 'error',
+        });
+        setShowAlert(true);
       }
     } catch (error) {
       console.error('Error committing:', error);
-      alert('An error occurred');
+      setAlertConfig({
+        title: t('error'),
+        message: t('errorOccurred'),
+        type: 'error',
+      });
+      setShowAlert(true);
     }
   };
 
@@ -459,6 +481,15 @@ export default function SubmissionsPage() {
           </div>
         </div>
       )}
+
+      {/* Custom Alert */}
+      <Alert
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
+      />
     </div>
   );
 }

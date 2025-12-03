@@ -65,26 +65,30 @@ export default function Confirm({
   const styles = typeStyles[type];
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full transform animate-scaleIn">
-        {/* Icon Section */}
-        <div className={`${styles.bg} border-b-4 ${styles.border} px-6 py-8 flex flex-col items-center`}>
-          <div className={`${styles.iconBg} ${styles.iconColor} rounded-full p-3 mb-4 animate-bounce-once`}>
-            {styles.icon}
+    <div className="fixed inset-0 bg-black/20 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-lg max-w-md w-full border-l-4 border-l-gray-400">
+        {/* Header Section */}
+        <div className={`${styles.bg} px-6 py-5 rounded-t-lg border-b border-gray-200`}>
+          <div className="flex items-start gap-4">
+            <div className={`${styles.iconColor} flex-shrink-0`}>
+              {styles.icon}
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+            </div>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 text-center">{title}</h2>
         </div>
 
         {/* Message Section */}
-        <div className="px-6 py-6">
-          <p className="text-gray-700 text-center leading-relaxed">{message}</p>
+        <div className="px-6 py-5">
+          <p className="text-gray-700 text-sm leading-relaxed">{message}</p>
         </div>
 
         {/* Button Section */}
-        <div className="px-6 pb-6 flex flex-col sm:flex-row gap-3">
+        <div className="px-6 pb-5 flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2.5 rounded font-medium transition-colors"
           >
             {cancelText}
           </button>
@@ -93,55 +97,12 @@ export default function Confirm({
               onConfirm();
               onClose();
             }}
-            className={`flex-1 ${styles.confirmButton} text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg`}
+            className={`flex-1 ${styles.confirmButton} text-white py-2.5 rounded font-medium transition-colors`}
           >
             {confirmText}
           </button>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @keyframes bounceOnce {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.2s ease-out;
-        }
-
-        .animate-scaleIn {
-          animation: scaleIn 0.3s ease-out;
-        }
-
-        .animate-bounce-once {
-          animation: bounceOnce 0.6s ease-in-out;
-        }
-      `}</style>
     </div>
   );
 }

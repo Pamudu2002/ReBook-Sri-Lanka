@@ -89,12 +89,6 @@ export default function Navbar() {
                   >
                     {t('donorLogin')}
                   </Link>
-                  <Link
-                    href="/admin/login"
-                    className="bg-primary-700 hover:bg-primary-500 px-4 py-2 rounded transition-colors"
-                  >
-                    {t('adminLogin')}
-                  </Link>
                 </>
               )}
             </div>
@@ -221,13 +215,6 @@ export default function Navbar() {
                     className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors font-medium"
                   >
                     {t('donorRegister')}
-                  </Link>
-                  <Link
-                    href="/admin/login"
-                    onClick={closeSidebar}
-                    className="block px-4 py-3 rounded-lg text-white bg-primary-600 hover:bg-primary-700 transition-colors font-medium"
-                  >
-                    {t('adminLogin')}
                   </Link>
                 </>
               )}

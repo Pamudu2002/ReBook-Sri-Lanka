@@ -49,3 +49,6 @@ next-env.d.ts
 # OS
 .DS_Store
 Thumbs.db
+
+# Admin Access Documentation (CONFIDENTIAL)
+ADMIN_ACCESS.md

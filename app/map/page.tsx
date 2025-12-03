@@ -163,10 +163,10 @@ export default function MapPage() {
                         <div className="p-2">
                           <strong className="text-base block mb-2">{district}</strong>
                           <div className="space-y-1 text-sm">
-                            <div><span className="font-medium">Total:</span> <strong>{districtStats.total}</strong></div>
-                            <div className="text-green-600"><span className="font-medium">Open:</span> <strong>{districtStats.open}</strong></div>
-                            <div className="text-blue-600"><span className="font-medium">In Progress:</span> <strong>{districtStats.inProgress}</strong></div>
-                            <div className="text-gray-600"><span className="font-medium">Completed:</span> <strong>{districtStats.completed}</strong></div>
+                            <div><span className="font-medium">{t('total')}:</span> <strong>{districtStats.total}</strong></div>
+                            <div className="text-green-600"><span className="font-medium">{t('open')}:</span> <strong>{districtStats.open}</strong></div>
+                            <div className="text-blue-600"><span className="font-medium">{t('inProgressLabel')}:</span> <strong>{districtStats.inProgress}</strong></div>
+                            <div className="text-gray-600"><span className="font-medium">{t('completedLabel')}:</span> <strong>{districtStats.completed}</strong></div>
                           </div>
                         </div>
                       </Popup>

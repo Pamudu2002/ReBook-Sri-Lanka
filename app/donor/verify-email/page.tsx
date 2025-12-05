@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Alert from '@/components/Alert';
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
   const { t } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -302,5 +302,13 @@ export default function VerifyEmailPage() {
         type={alertConfig.type}
       />
     </div>
+  );
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 pt-20"><Navbar /><div className="flex justify-center items-center min-h-[60vh]"><div className="text-gray-600">Loading...</div></div></div>}>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }

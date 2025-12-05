@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Alert from '@/components/Alert';
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
   const { t } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -231,5 +231,13 @@ export default function ResetPasswordPage() {
         type={alertConfig.type}
       />
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 pt-20"><Navbar /><div className="flex justify-center items-center min-h-[60vh]"><div className="text-gray-600">Loading...</div></div></div>}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }

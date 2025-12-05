@@ -4,6 +4,8 @@ import Requirement from '@/models/Requirement';
 import Donor from '@/models/Donor';
 import { verifyToken, getTokenFromHeader } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     await connectDB();

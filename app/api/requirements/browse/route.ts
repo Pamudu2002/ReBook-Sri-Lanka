@@ -6,6 +6,8 @@ import Donor from '@/models/Donor';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     await connectDB();

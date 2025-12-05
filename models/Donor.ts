@@ -14,6 +14,8 @@ export interface IDonor extends Document {
   isEmailVerified: boolean;
   emailOTP?: string;
   otpExpiry?: Date;
+  resetPasswordToken?: string;
+  resetPasswordExpiry?: Date;
   registeredAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
@@ -76,6 +78,12 @@ const DonorSchema = new Schema<IDonor>(
     otpExpiry: {
       type: Date,
       select: false,
+    },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpiry: {
+      type: Date,
     },
     registeredAt: {
       type: Date,

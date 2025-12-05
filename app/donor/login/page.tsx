@@ -71,9 +71,17 @@ export default function DonorLogin() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                {t('password')}
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-sm font-medium text-gray-700">
+                  {t('password')}
+                </label>
+                <Link
+                  href="/donor/forgot-password"
+                  className="text-xs text-primary-600 hover:text-primary-700 font-medium"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
               <input
                 type="password"
                 name="password"

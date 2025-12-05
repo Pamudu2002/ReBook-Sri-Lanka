@@ -75,7 +75,7 @@ export default function ForgotPasswordPage() {
               Forgot Password?
             </h1>
             <p className="text-gray-600 text-sm">
-              No worries! Enter your email and we'll send you reset instructions.
+              No worries! Enter your email and we&apos;ll send you reset instructions.
             </p>
           </div>
 
@@ -104,9 +104,9 @@ export default function ForgotPasswordPage() {
                 <div className="text-sm text-blue-800">
                   <p className="font-semibold mb-1">What happens next?</p>
                   <ul className="space-y-1 text-xs">
-                    <li>• We'll email you a secure reset link</li>
+                    <li>• We&apos;ll email you a secure reset link</li>
                     <li>• The link expires in 1 hour</li>
-                    <li>• Check your spam folder if you don't see it</li>
+                    <li>• Check your spam folder if you don&apos;t see it</li>
                   </ul>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function ForgotPasswordPage() {
           {/* Footer Note */}
           <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              If you don't receive an email within a few minutes, check your spam folder or try again.
+              If you don&apos;t receive an email within a few minutes, check your spam folder or try again.
             </p>
           </div>
         </div>

@@ -198,7 +198,7 @@ export default function VerifyEmailPage() {
               Verify Your Email
             </h1>
             <p className="text-gray-600 text-sm">
-              We've sent a 6-digit code to
+              We&apos;ve sent a 6-digit code to
             </p>
             <p className="text-blue-600 font-semibold mt-1">
               {email}
@@ -258,7 +258,7 @@ export default function VerifyEmailPage() {
           {/* Resend Section */}
           <div className="mt-6 text-center">
             <p className="text-gray-600 text-sm mb-2">
-              Didn't receive the code?
+              Didn&apos;t receive the code?
             </p>
             {countdown > 0 ? (
               <p className="text-gray-500 text-sm">
@@ -285,7 +285,7 @@ export default function VerifyEmailPage() {
           {/* Help Text */}
           <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              Check your spam folder if you don't see the email.
+              Check your spam folder if you don&apos;t see the email.
               <br />
               For support, contact us at support@rebook.lk
             </p>

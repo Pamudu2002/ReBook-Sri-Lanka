@@ -302,7 +302,7 @@ export default function SubmissionsPage() {
                       </svg>
                       {new Date(req.submittedAt).toLocaleDateString()}
                     </div>
-                    {req.status === 'in-progress' && req.donorName && (
+                    {(req.status === 'in-progress' || req.status === 'completed') && req.donorName && (
                       <div className="flex items-center text-blue-600 text-xs font-medium">
                         <svg className="w-3 h-3 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -528,7 +528,7 @@ export default function SubmissionsPage() {
               )}
 
               {/* Helper Info */}
-              {selectedRequirement.status === 'in-progress' && selectedRequirement.donorName && (
+              {(selectedRequirement.status === 'in-progress' || selectedRequirement.status === 'completed') && selectedRequirement.donorName && (
                 <div className="bg-blue-50 rounded p-3">
                   <p className="text-sm text-blue-900 flex items-center gap-2">
                     <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

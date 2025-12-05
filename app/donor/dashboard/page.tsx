@@ -240,19 +240,15 @@ export default function DonorDashboard() {
                 className="bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col"
               >
                 {/* Card Header */}
-                <div className={`p-3 text-white border-b ${
-                  req.status === 'completed' 
-                    ? 'bg-green-600 border-green-700' 
-                    : 'bg-blue-600 border-blue-700'
-                }`}>
-                  <div className="flex justify-between items-start mb-1">
-                    <h3 className="text-base font-bold line-clamp-1">{req.studentName}</h3>
-                    {getStatusBadge(req.status)}
+                <div className="bg-blue-50 border-b border-blue-100 p-3">
+                  <div className="flex justify-between items-center gap-2 mb-1">
+                    <h3 className="text-base font-bold text-gray-800 truncate flex-1 min-w-0">{req.studentName}</h3>
+                    <div className="flex-shrink-0">{getStatusBadge(req.status)}</div>
                   </div>
-                  <p className="text-white text-opacity-90 text-xs">
+                  <p className="text-gray-600 text-xs truncate">
                     {req.school}
                   </p>
-                  <p className="text-white text-opacity-80 text-xs">Grade {req.grade}</p>
+                  <p className="text-gray-500 text-xs">Grade {req.grade}</p>
                 </div>
 
                 {/* Card Body */}
@@ -320,9 +316,9 @@ export default function DonorDashboard() {
       {/* Detail Modal */}
       {selectedRequirement && (
         <div className="fixed inset-0 bg-black/20 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-lg w-full max-h-[85vh] overflow-hidden shadow-lg">
+          <div className="bg-white rounded-lg max-w-lg w-full max-h-[90vh] flex flex-col shadow-lg">
             {/* Header */}
-            <div className="bg-blue-50 border-b border-blue-100 px-5 py-4">
+            <div className="bg-blue-50 border-b border-blue-100 px-5 py-4 flex-shrink-0">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-gray-900">{selectedRequirement.studentName}</h3>
@@ -347,7 +343,8 @@ export default function DonorDashboard() {
               </div>
             </div>
             
-            <div className="p-5 space-y-4 overflow-y-auto max-h-[calc(85vh-180px)]">
+            {/* Scrollable Content */}
+            <div className="p-5 space-y-4 overflow-y-auto flex-1">
               {/* Contact Info */}
               <div>
                 <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -424,7 +421,7 @@ export default function DonorDashboard() {
             </div>
 
             {/* Footer with Action Buttons */}
-            <div className="border-t border-gray-200 px-5 py-4 bg-gray-50">
+            <div className="border-t border-gray-200 px-5 py-4 bg-gray-50 flex-shrink-0">
               <div className="flex gap-2">
                 {selectedRequirement.status === 'in-progress' && (
                   <button

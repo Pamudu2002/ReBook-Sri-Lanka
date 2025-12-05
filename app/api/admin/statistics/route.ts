@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Requirement from '@/models/Requirement';
 import Donor from '@/models/Donor';
+import Admin from '@/models/Admin';
 import { verifyToken, getTokenFromHeader } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
@@ -23,18 +24,26 @@ export async function GET(request: NextRequest) {
       totalRequirements,
       pendingRequirements,
       approvedRequirements,
-      fulfilledRequirements,
+      inProgressRequirements,
+      completedRequirements,
+      rejectedRequirements,
       totalDonors,
       verifiedDonors,
       pendingDonors,
+      emailVerifiedDonors,
+      totalAdmins,
     ] = await Promise.all([
       Requirement.countDocuments(),
       Requirement.countDocuments({ status: 'pending' }),
       Requirement.countDocuments({ status: 'approved' }),
-      Requirement.countDocuments({ status: 'fulfilled' }),
+      Requirement.countDocuments({ status: 'in-progress' }),
+      Requirement.countDocuments({ status: 'completed' }),
+      Requirement.countDocuments({ status: 'rejected' }),
       Donor.countDocuments(),
       Donor.countDocuments({ isVerified: true }),
       Donor.countDocuments({ isVerified: false }),
+      Donor.countDocuments({ isEmailVerified: true }),
+      Admin.countDocuments(),
     ]);
 
     return NextResponse.json({
@@ -43,12 +52,18 @@ export async function GET(request: NextRequest) {
           total: totalRequirements,
           pending: pendingRequirements,
           approved: approvedRequirements,
-          fulfilled: fulfilledRequirements,
+          'in-progress': inProgressRequirements,
+          completed: completedRequirements,
+          rejected: rejectedRequirements,
         },
         donors: {
           total: totalDonors,
           verified: verifiedDonors,
           pending: pendingDonors,
+          emailVerified: emailVerifiedDonors,
+        },
+        admins: {
+          total: totalAdmins,
         },
       },
     });

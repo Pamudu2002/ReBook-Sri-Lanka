@@ -49,3 +49,43 @@ export async function PATCH(
     );
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    await connectDB();
+    
+    const token = getTokenFromHeader(request.headers.get('authorization'));
+    
+    if (!token) {
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded || decoded.role !== 'admin') {
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
+    const donor = await Donor.findByIdAndDelete(params.id);
+
+    if (!donor) {
+      return NextResponse.json(
+        { message: 'Donor not found' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Donor deleted successfully',
+    });
+  } catch (error: any) {
+    console.error('Delete donor error:', error);
+    return NextResponse.json(
+      { message: 'Failed to delete donor' },
+      { status: 500 }
+    );
+  }
+}

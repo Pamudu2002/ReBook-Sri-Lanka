@@ -49,6 +49,20 @@ export async function sendOTPEmail(email: string, otp: string, name: string): Pr
               text-align: center;
               color: white;
             }
+            .logo {
+              width: 60px;
+              height: 60px;
+              margin: 0 auto 20px;
+              background: white;
+              border-radius: 12px;
+              padding: 8px;
+              display: inline-block;
+            }
+            .logo img {
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
             .header h1 {
               margin: 0;
               font-size: 28px;
@@ -160,7 +174,11 @@ export async function sendOTPEmail(email: string, otp: string, name: string): Pr
         <body>
           <div class="container">
             <div class="header">
-              <h1>📚 ReBook Sri Lanka</h1>
+              <div class="logo">
+                <img src="https://i.ibb.co/N6Z9KHSm/logo.png" alt="ReBook Sri Lanka Logo" />
+              </div>
+              <h1>ReBook Sri Lanka</h1>
+              <p style="margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">Email Verification</p>
             </div>
             <div class="content">
               <p class="greeting">Hello ${name},</p>
@@ -267,14 +285,24 @@ export async function sendPasswordResetEmail(email: string, resetToken: string, 
               text-align: center;
               color: white;
             }
+            .logo {
+              width: 60px;
+              height: 60px;
+              margin: 0 auto 20px;
+              background: white;
+              border-radius: 12px;
+              padding: 8px;
+              display: inline-block;
+            }
+            .logo img {
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
             .header h1 {
               margin: 0;
               font-size: 28px;
               font-weight: 700;
-            }
-            .icon {
-              font-size: 48px;
-              margin-bottom: 10px;
             }
             .content {
               padding: 40px 30px;
@@ -394,8 +422,11 @@ export async function sendPasswordResetEmail(email: string, resetToken: string, 
         <body>
           <div class="container">
             <div class="header">
-              <div class="icon">🔐</div>
-              <h1>Password Reset Request</h1>
+              <div class="logo">
+                <img src="https://i.ibb.co/N6Z9KHSm/logo.png" alt="ReBook Sri Lanka Logo" />
+              </div>
+              <h1>ReBook Sri Lanka</h1>
+              <p style="margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">Password Reset Request</p>
             </div>
             <div class="content">
               <p class="greeting">Hello ${name},</p>

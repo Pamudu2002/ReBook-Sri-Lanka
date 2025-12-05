@@ -276,11 +276,21 @@ export default function SubmissionsPage() {
               >
                 {/* Card Header */}
                 <div className="bg-blue-50 border-b border-blue-100 p-3">
-                  <div className="flex justify-between items-start mb-1">
-                    <h3 className="text-base font-bold text-gray-800 line-clamp-1">{req.studentName}</h3>
-                    {getStatusBadge(req.status)}
+                  <div className="flex justify-between items-center gap-2 mb-1">
+                    <h3 className="text-base font-bold text-gray-800 truncate flex-1 min-w-0">{req.studentName}</h3>
+                    <div className="flex-shrink-0">
+                      {getStatusBadge(req.status)}
+                    </div>
                   </div>
-                  <p className="text-gray-600 text-xs">
+                  {req.status !== 'pending' && (
+                    <div className="flex items-center gap-1 mb-1">
+                      <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-xs font-medium text-blue-600">Verified</span>
+                    </div>
+                  )}
+                  <p className="text-gray-600 text-xs truncate">
                     {req.school}
                   </p>
                   <p className="text-gray-500 text-xs">Grade {req.grade}</p>
@@ -408,9 +418,9 @@ export default function SubmissionsPage() {
       {/* Detail Modal */}
       {selectedRequirement && (
         <div className="fixed inset-0 bg-black/20 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded max-w-lg w-full max-h-[85vh] overflow-hidden shadow-lg">
+          <div className="bg-white rounded max-w-lg w-full max-h-[90vh] flex flex-col shadow-lg">
             {/* Header */}
-            <div className="bg-blue-50 border-b border-blue-100 px-5 py-4">
+            <div className="bg-blue-50 border-b border-blue-100 px-5 py-4 flex-shrink-0">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-gray-900">{selectedRequirement.studentName}</h3>
@@ -450,7 +460,8 @@ export default function SubmissionsPage() {
               </div>
             </div>
             
-            <div className="p-5 space-y-4 overflow-y-auto max-h-[calc(85vh-180px)]">
+            {/* Scrollable Content */}
+            <div className="p-5 space-y-4 overflow-y-auto flex-1">
               {/* Contact Info - Only for logged-in donors on open submissions */}
               {user && user.role === 'donor' && (selectedRequirement.status === 'open' || selectedRequirement.status === 'approved') && (
                 <div>
@@ -541,7 +552,7 @@ export default function SubmissionsPage() {
             </div>
 
             {/* Footer with Action Buttons */}
-            <div className="border-t border-gray-200 px-5 py-4 bg-gray-50">
+            <div className="border-t border-gray-200 px-5 py-4 bg-gray-50 flex-shrink-0">
               <div className="flex gap-2">
                 {user && user.role === 'donor' && (selectedRequirement.status === 'open' || selectedRequirement.status === 'approved') && (
                   <button

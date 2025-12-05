@@ -81,3 +81,43 @@ export async function PATCH(
     );
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    await connectDB();
+    
+    const token = getTokenFromHeader(request.headers.get('authorization'));
+    
+    if (!token) {
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded || decoded.role !== 'admin') {
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
+    const requirement = await Requirement.findByIdAndDelete(params.id);
+
+    if (!requirement) {
+      return NextResponse.json(
+        { message: 'Requirement not found' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Requirement deleted successfully',
+    });
+  } catch (error: any) {
+    console.error('Delete requirement error:', error);
+    return NextResponse.json(
+      { message: 'Failed to delete requirement' },
+      { status: 500 }
+    );
+  }
+}

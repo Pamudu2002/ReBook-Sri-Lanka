@@ -78,11 +78,11 @@ export default function DonorRegister() {
       if (response.ok) {
         setAlertConfig({
           title: t('success'),
-          message: t('registrationPending'),
+          message: data.message,
           type: 'success',
         });
         setShowAlert(true);
-        setTimeout(() => router.push('/donor/login'), 3000);
+        setTimeout(() => router.push(`/donor/verify-email?email=${encodeURIComponent(formData.email)}`), 2000);
       } else {
         setAlertConfig({
           title: t('error'),

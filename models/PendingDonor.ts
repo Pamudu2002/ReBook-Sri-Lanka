@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-export interface IDonor extends Document {
+export interface IPendingDonor extends Document {
   name: string;
   email: string;
   password: string;
@@ -9,16 +9,12 @@ export interface IDonor extends Document {
   address: string;
   district: string;
   organization?: string;
-  isVerified: boolean;
-  verifiedAt?: Date;
-  isEmailVerified: boolean;
-  emailOTP?: string;
-  otpExpiry?: Date;
-  registeredAt: Date;
-  comparePassword(candidatePassword: string): Promise<boolean>;
+  emailOTP: string;
+  otpExpiry: Date;
+  createdAt: Date;
 }
 
-const DonorSchema = new Schema<IDonor>(
+const PendingDonorSchema = new Schema<IPendingDonor>(
   {
     name: {
       type: String,
@@ -37,7 +33,6 @@ const DonorSchema = new Schema<IDonor>(
       type: String,
       required: [true, 'Password is required'],
       minlength: [6, 'Password must be at least 6 characters'],
-      select: false,
     },
     phone: {
       type: String,
@@ -58,44 +53,25 @@ const DonorSchema = new Schema<IDonor>(
       type: String,
       trim: true,
     },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
-    verifiedAt: {
-      type: Date,
-    },
-    isEmailVerified: {
-      type: Boolean,
-      default: false,
-    },
     emailOTP: {
       type: String,
-      select: false,
+      required: true,
     },
     otpExpiry: {
       type: Date,
-      select: false,
+      required: true,
     },
-    registeredAt: {
+    createdAt: {
       type: Date,
       default: Date.now,
+      expires: 86400, // Auto-delete after 24 hours
     },
-  },
-  {
-    timestamps: true,
   }
 );
 
 // Hash password before saving
-DonorSchema.pre('save', async function (next) {
-  // Skip hashing if password hasn't been modified or is already hashed (from PendingDonor)
+PendingDonorSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  
-  // Check if password is already hashed (bcrypt hashes start with $2a$, $2b$, or $2y$)
-  if (this.password.match(/^\$2[ayb]\$.{56}$/)) {
-    return next();
-  }
   
   try {
     const salt = await bcrypt.genSalt(10);
@@ -106,16 +82,11 @@ DonorSchema.pre('save', async function (next) {
   }
 });
 
-// Method to compare password
-DonorSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
-  return bcrypt.compare(candidatePassword, this.password);
-};
+// Index for faster queries and auto-cleanup
+PendingDonorSchema.index({ email: 1 });
+PendingDonorSchema.index({ otpExpiry: 1 }, { expireAfterSeconds: 0 });
 
-// Index for faster queries
-DonorSchema.index({ email: 1 });
-DonorSchema.index({ isVerified: 1 });
+const PendingDonor: Model<IPendingDonor> =
+  mongoose.models.PendingDonor || mongoose.model<IPendingDonor>('PendingDonor', PendingDonorSchema);
 
-const Donor: Model<IDonor> =
-  mongoose.models.Donor || mongoose.model<IDonor>('Donor', DonorSchema);
-
-export default Donor;
+export default PendingDonor;

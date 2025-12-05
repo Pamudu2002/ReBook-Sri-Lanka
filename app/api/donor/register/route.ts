@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Donor from '@/models/Donor';
+import PendingDonor from '@/models/PendingDonor';
+import { generateOTP, sendOTPEmail } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,7 +19,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if donor already exists
+    // Check if donor already exists in main Donor collection
     const existingDonor = await Donor.findOne({ email: email.toLowerCase() });
     if (existingDonor) {
       return NextResponse.json(
@@ -26,8 +28,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create new donor
-    const donor = await Donor.create({
+    // Check if already in pending registrations
+    const existingPending = await PendingDonor.findOne({ email: email.toLowerCase() });
+    if (existingPending) {
+      // Delete old pending registration
+      await PendingDonor.findByIdAndDelete(existingPending._id);
+    }
+
+    // Generate OTP
+    const otp = generateOTP();
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+    // Create pending donor registration
+    const pendingDonor = await PendingDonor.create({
       name,
       email: email.toLowerCase(),
       password,
@@ -35,16 +48,28 @@ export async function POST(request: NextRequest) {
       address,
       district,
       organization,
-      isVerified: false,
+      emailOTP: otp,
+      otpExpiry,
     });
+
+    // Send OTP email
+    const emailSent = await sendOTPEmail(email.toLowerCase(), otp, name);
+
+    if (!emailSent) {
+      // If email fails, delete the pending registration and return error
+      await PendingDonor.findByIdAndDelete(pendingDonor._id);
+      return NextResponse.json(
+        { message: 'Failed to send verification email. Please try again.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(
       {
-        message: 'Registration successful! Your account is pending admin verification.',
+        message: 'Registration successful! Please check your email for the verification code.',
         donor: {
-          id: donor._id,
-          name: donor.name,
-          email: donor.email,
+          id: pendingDonor._id,
+          email: pendingDonor.email,
         },
       },
       { status: 201 }

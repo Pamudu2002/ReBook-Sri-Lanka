@@ -192,7 +192,7 @@ export default function SubmissionsPage() {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('allSubmissions')} ({filter === 'all' ? totalCount : ''})
+              {t('allSubmissions')} {filter === 'all' && `(${totalCount})`}
             </button>
             <button
               onClick={() => { setFilter('open'); setCurrentPage(1); }}
@@ -202,7 +202,7 @@ export default function SubmissionsPage() {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('openStatus')} ({filter === 'open' ? totalCount : ''})
+              {t('openStatus')} {filter === 'open' && `(${totalCount})`}
             </button>
             <button
               onClick={() => { setFilter('in-progress'); setCurrentPage(1); }}
@@ -212,7 +212,7 @@ export default function SubmissionsPage() {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('inProgressStatus')} ({filter === 'in-progress' ? totalCount : ''})
+              {t('inProgressStatus')} {filter === 'in-progress' && `(${totalCount})`}
             </button>
             <button
               onClick={() => { setFilter('completed'); setCurrentPage(1); }}
@@ -222,7 +222,7 @@ export default function SubmissionsPage() {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('completedStatus')} ({filter === 'completed' ? totalCount : ''})
+              {t('completedStatus')} {filter === 'completed' && `(${totalCount})`}
             </button>
           </div>
 

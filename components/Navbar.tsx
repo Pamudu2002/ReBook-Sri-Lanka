@@ -40,22 +40,6 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6">
-              {/* Language Switcher */}
-              <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => setLanguage(lang.code)}
-                    className={`px-3 py-1.5 rounded-md transition-all text-sm font-medium ${
-                      language === lang.code
-                        ? 'bg-white text-blue-600 shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900'
-                    }`}
-                  >
-                    {lang.label}
-                  </button>
-                ))}
-              </div>
 
               {/* Menu Button for Desktop */}
               <button

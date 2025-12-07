@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
+import FaqSection from '@/components/FaqSection';
 
 export default function Home() {
   const { t } = useLanguage();
@@ -218,6 +219,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FaqSection />
 
       {/* Stats Section */}
       <section className="py-12 md:py-16 bg-primary-600">

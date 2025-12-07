@@ -47,8 +47,8 @@ export default function ContactPage() {
             <h3 className="text-xl font-bold text-gray-900 mb-3">Visit Us</h3>
             <div className="space-y-1 text-gray-600 leading-relaxed">
               <p>ReBook Sri Lanka HQ</p>
-              <p>123 Union Place</p>
-              <p>Colombo 02, Sri Lanka</p>
+              <p>Isuru Place</p>
+              <p>Bulathsinhala, Sri Lanka</p>
             </div>
           </div>
 
@@ -61,8 +61,8 @@ export default function ContactPage() {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">Call Us</h3>
             <div className="space-y-1 text-gray-600">
-              <p className="font-medium text-lg">+94 11 234 5678</p>
-              <p>+94 77 123 4567</p>
+              <p className="font-medium text-lg">+94 71 882 3065</p>
+              <p>+94 76 388 1265</p>
               <p className="text-sm text-gray-400 mt-2">Mon - Fri, 9am to 5pm</p>
             </div>
           </div>
@@ -76,8 +76,7 @@ export default function ContactPage() {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">Email Us</h3>
             <div className="space-y-1 text-gray-600">
-              <p className="font-medium text-blue-600 hover:underline">support@rebooksrilanka.lk</p>
-              <p className="font-medium text-blue-600 hover:underline">info@rebooksrilanka.lk</p>
+              <p className="font-medium text-blue-600 hover:underline">rebooksrilanka@gmail.com</p>
               <p className="text-sm text-gray-400 mt-2">We reply within 24 hours</p>
             </div>
           </div>

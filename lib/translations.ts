@@ -272,6 +272,21 @@ export const translations = {
     contactUsCta: 'Get Touch With Us',
     contactUsCtaDesc: 'Have questions or want to partner with us?',
     contactButton: 'Contact Us',
+
+    // FAQ Section
+    faqCommonQuestions: 'Common Questions',
+    faqTitle: 'Frequently Asked Questions',
+    faqSubtitle: 'Everything you need to know about how ReBook Sri Lanka connects students with donors.',
+    faqQ1: 'What is ReBook Sri Lanka?',
+    faqA1: 'ReBook Sri Lanka is a non-profit web platform designed to help students affected by the recent floods. Our mission is to bridge the gap between students who have lost their stationery items and generous donors willing to replace them, helping children return to school as soon as possible.',
+    faqQ2: 'I am a student. What kind of items can I request?',
+    faqA2: 'You can list any essential educational material that was lost or damaged due to the floods. This includes exercise books, textbooks, pens, pencils, school bags, shoes, and geometry boxes. Please request only what you genuinely need to restart your studies.',
+    faqQ3: 'As a donor, do I donate money or items?',
+    faqA3: 'We encourage direct donation of items. You can view a student\'s list of requirements and choose to either purchase the items and send them, or send your own gently used (good condition) stationery. If you prefer to offer financial help, please contact the student or their guardian directly through the platform to arrange the purchase of specific items.',
+    faqQ4: 'How do the items get delivered to the student?',
+    faqA4: 'ReBook Sri Lanka acts as the connector. Once a donor selects a student to help, they can communicate to arrange delivery. Donors typically send items via local courier, post, or—if they live nearby—arrange a safe handover.',
+    faqQ5: 'Is there a fee to use this service?',
+    faqA5: 'No. ReBook Sri Lanka is 100% free for both students and donors. We are a community-driven project dedicated to restoring education after the disaster.',
   },
   
   si: {
@@ -547,6 +562,21 @@ export const translations = {
     contactUsCta: 'අප හා සම්බන්ධ වන්න',
     contactUsCtaDesc: 'ප්‍රශ්න තිබේද හෝ අප සමඟ හවුල් වීමට අවශ්‍යද?',
     contactButton: 'අප අමතන්න',
+
+    // FAQ Section
+    faqCommonQuestions: 'පොදු ප්‍රශ්න',
+    faqTitle: 'නිතර අසන ප්‍රශ්න',
+    faqSubtitle: 'රීබුක් ශ්‍රී ලංකාව සිසුන් සහ දායකයින් සම්බන්ධ කරන ආකාරය ගැන ඔබ දැනගත යුතු සියල්ල.',
+    faqQ1: 'රීබුක් ශ්‍රී ලංකාව යනු කුමක්ද?',
+    faqA1: 'රීබුක් ශ්‍රී ලංකාව යනු මෑතකදී ඇති වූ ගංවතුරෙන් පීඩාවට පත් සිසුන්ට උපකාර කිරීම සඳහා නිර්මාණය කරන ලද ලාභ නොලබන වෙබ් වේදිකාවකි. අපගේ මෙහෙවර වන්නේ ඔවුන්ගේ ලිපි ද්‍රව්‍ය අහිමි වූ සිසුන් සහ ඒවා ප්‍රතිස්ථාපනය කිරීමට කැමති ත්‍යාගශීලී දායකයින් අතර පරතරය පියවීම, දරුවන්ට හැකි ඉක්මනින් පාසලට ආපසු යාමට උපකාර කිරීමයි.',
+    faqQ2: 'මම ශිෂ්‍යයෙක්. මට කුමන ආකාරයේ භාණ්ඩ ඉල්ලීමට හැකිද?',
+    faqA2: 'ගං වතුරෙන් නැති වූ හෝ හානි වූ ඕනෑම අත්‍යවශ්‍ය අධ්‍යාපන ද්‍රව්‍යයක් ඔබට ලැයිස්තුගත කළ හැකිය. මෙයට පුහුණු පොත්, පෙළ පොත්, පෑන්, පැන්සල්, පාසල් බෑග්, සපත්තු, සහ ජ්‍යාමිතික කට්ටල ඇතුළත් වේ. කරුණාකර ඔබගේ අධ්‍යයන නැවත ආරම්භ කිරීමට ඇත්ත වශයෙන්ම අවශ්‍ය දේ පමණක් ඉල්ලන්න.',
+    faqQ3: 'දායකයෙකු ලෙස, මම මුදල් හෝ භාණ්ඩ පරිත්‍යාග කරන්නේද?',
+    faqA3: 'අපි සෘජු භාණ්ඩ පරිත්‍යාගය දිරිමත් කරමු. ඔබට ශිෂ්‍යයෙකුගේ අවශ්‍යතා ලැයිස්තුව බලා භාණ්ඩ මිලදී ගෙන යැවීමට හෝ ඔබේම සුමට භාවිත (හොඳ තත්ත්වයේ) ලිපි ද්‍රව්‍ය යැවීමට තෝරාගත හැකිය. ඔබ මූල්‍ය උපකාරයක් ලබා දීමට කැමති නම්, කරුණාකර නිශ්චිත භාණ්ඩ මිලදී ගැනීමට ව්‍යවස්ථා කිරීමට වේදිකාව හරහා ශිෂ්‍යයා හෝ ඔවුන්ගේ භාරකරු සෘජුවම සම්බන්ධ කර ගන්න.',
+    faqQ4: 'භාණ්ඩ ශිෂ්‍යයාට ලබා දෙන්නේ කෙසේද?',
+    faqA4: 'රීබුක් ශ්‍රී ලංකාව සම්බන්ධකයා ලෙස ක්‍රියා කරයි. දායකයෙකු උපකාර කිරීමට ශිෂ්‍යයෙකු තෝරාගත් පසු, ඔවුන්ට බෙදාහැරීම සකස් කිරීමට සන්නිවේදනය කළ හැකිය. දායකයින් සාමාන්‍යයෙන් ප්‍රාදේශීය කුරියර්, තැපැල් හරහා හෝ – ඔවුන් අසල පදිංචි නම් – ආරක්ෂිත භාර දීමක් සකස් කරයි.',
+    faqQ5: 'මෙම සේවාව භාවිතා කිරීමට ගාස්තුවක් තිබේද?',
+    faqA5: 'නැත. රීබුක් ශ්‍රී ලංකාව සිසුන් සහ දායකයින් දෙපාර්ශ්වයටම 100% නොමිලේ. අපි ආපදාවෙන් පසු අධ්‍යාපනය ප්‍රතිස්ථාපනය කිරීමට කැපවූ ප්‍රජා-මෙහෙයවන ව්‍යාපෘතියකි.',
   },
   
   ta: {
@@ -822,6 +852,21 @@ export const translations = {
     contactUsCta: 'எங்களுடன் இணையுங்கள்',
     contactUsCtaDesc: 'கேள்விகள் உள்ளதா அல்லது எங்களுடன் இணைய விரும்புகிறீர்களா?',
     contactButton: 'எங்களை தொடர்பு கொள்ள',
+
+    // FAQ Section
+    faqCommonQuestions: 'பொதுவான கேள்விகள்',
+    faqTitle: 'அடிக்கடி கேட்கப்படும் கேள்விகள்',
+    faqSubtitle: 'ரீபுக் இலங்கை மாணவர்களை நன்கொடையாளர்களுடன் எவ்வாறு இணைக்கிறது என்பது பற்றி நீங்கள் தெரிந்து கொள்ள வேண்டிய அனைத்தும்.',
+    faqQ1: 'ரீபுக் இலங்கை என்றால் என்ன?',
+    faqA1: 'ரீபுக் இலங்கை என்பது சமீபத்திய வெள்ளத்தால் பாதிக்கப்பட்ட மாணவர்களுக்கு உதவ வடிவமைக்கப்பட்ட ஒரு இலாப நோக்கற்ற வலைத்தளமாகும். தங்கள் எழுதுபொருட்களை இழந்த மாணவர்களுக்கும் அவற்றை மாற்றித்தர விரும்பும் தாராள நன்கொடையாளர்களுக்கும் இடையே உள்ள இடைவெளியைக் குறைப்பது எங்கள் நோக்கமாகும், இது குழந்தைகள் விரைவில் பள்ளிக்குத் திரும்ப உதவுகிறது.',
+    faqQ2: 'நான் ஒரு மாணவன். எந்த வகையான பொருட்களை நான் கோர முடியும்?',
+    faqA2: 'வெள்ளத்தின் காரணமாக தொலைந்த அல்லது சேதமடைந்த எந்தவொரு அத்தியாவசிய கல்விப் பொருளையும் நீங்கள் பட்டியலிடலாம். இதில் பயிற்சி புத்தகங்கள், பாடநூல்கள், பேனாக்கள், பென்சில்கள், பள்ளிப் பைகள், காலணிகள் மற்றும் ஜியோமெட்ரி பாக்ஸ்கள் ஆகியவை அடங்கும். உங்கள் படிப்பை மீண்டும் தொடங்க உண்மையிலேயே தேவையானவற்றை மட்டுமே கோருங்கள்.',
+    faqQ3: 'நன்கொடையாளராக, நான் பணமா அல்லது பொருட்களா நன்கொடை அளிப்பது?',
+    faqA3: 'பொருட்களை நேரடியாக நன்கொடையாக வழங்க ஊக்குவிக்கிறோம். மாணவரின் தேவைப்பட்டியலைப் பார்த்து பொருட்களை வாங்கி அனுப்பலாம் அல்லது உங்கள் சொந்த மென்மையாக பயன்படுத்தப்பட்ட (நல்ல நிலையில் உள்ள) எழுதுபொருட்களை அனுப்பலாம். நிதி உதவி வழங்க விரும்பினால், குறிப்பிட்ட பொருட்களை வாங்குவதற்கு ஏற்பாடு செய்ய தளத்தின் மூலம் மாணவரை அல்லது அவர்களின் பாதுகாவலரை நேரடியாகத் தொடர்புகொள்ளவும்.',
+    faqQ4: 'பொருட்கள் மாணவருக்கு எவ்வாறு விநியோகிக்கப்படுகின்றன?',
+    faqA4: 'ரீபுக் இலங்கை இணைப்பாளராக செயல்படுகிறது. ஒரு நன்கொடையாளர் உதவ ஒரு மாணவரைத் தேர்ந்தெடுத்தவுடன், அவர்கள் விநியோகத்தை ஏற்பாடு செய்ய தொடர்பு கொள்ளலாம். நன்கொடையாளர்கள் பொதுவாக உள்ளூர் கூரியர், தபால் அல்லது – அருகில் வசித்தால் – பாதுகாப்பான கையளிப்பை ஏற்பாடு செய்கின்றனர்.',
+    faqQ5: 'இந்த சேவையைப் பயன்படுத்த கட்டணம் உள்ளதா?',
+    faqA5: 'இல்லை. ரீபுக் இலங்கை மாணவர்கள் மற்றும் நன்கொடையாளர்கள் இருவருக்கும் 100% இலவசம். நாங்கள் பேரிடருக்குப் பிறகு கல்வியை மீட்டெடுக்க அர்ப்பணிக்கப்பட்ட சமூகம்-இயக்கும் திட்டமாகும்.',
   },
 };
 

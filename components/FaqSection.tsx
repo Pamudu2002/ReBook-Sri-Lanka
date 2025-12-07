@@ -192,47 +192,7 @@ export default function FaqSection() {
 
   return (
     <section ref={sectionRef} className="py-24 bg-white relative overflow-hidden">
-      {/* Animated decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <motion.div 
-          className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-blue-100 to-blue-50 rounded-full blur-3xl"
-          animate={{
-            x: [0, 20, 0],
-            y: [0, -15, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div 
-          className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-br from-purple-100 to-purple-50 rounded-full blur-3xl"
-          animate={{
-            x: [0, -25, 0],
-            y: [0, 20, 0],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-full blur-3xl opacity-50"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+      
 
       <div className="container mx-auto px-4 max-w-4xl relative z-10">
         {/* Animated header section */}

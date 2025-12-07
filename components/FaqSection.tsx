@@ -173,7 +173,7 @@ const FaqItem = ({
 
 export default function FaqSection() {
   const { t } = useLanguage();
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 

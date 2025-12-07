@@ -127,8 +127,8 @@ export default function Navbar() {
           {/* Sidebar Content */}
           <div className="flex-1 overflow-y-auto p-6">
             {/* Language Switcher */}
-            <div className="mb-6">
-              <h3 className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wider">Language</h3>
+            <div className="mb-8">
+              <h3 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">Language</h3>
               <div className="grid grid-cols-3 gap-2">
                 {languages.map((lang) => (
                   <button
@@ -146,91 +146,21 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Navigation Links */}
-            <div className="space-y-2">
-              {user ? (
-                <>
+            {/* Menu Sections */}
+            <div className="space-y-8">
+              
+              {/* MAIN Section */}
+              <div>
+                <h3 className="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider px-4">{t('menuMain')}</h3>
+                <div className="space-y-1">
                   <Link
                     href="/"
                     onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/' 
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                      pathname === '/' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 cancel-active'
                     }`}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                    {t('homeLink')}
-                  </Link>
-                  <Link
-                    href={user.role === 'admin' ? '/admin/dashboard' : '/donor/dashboard'}
-                    onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/admin/dashboard' || pathname === '/donor/dashboard'
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
-                    }`}
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    {t('dashboard')}
-                  </Link>
-                  <Link
-                    href="/submissions"
-                    onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/submissions'
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
-                    }`}
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    {t('browseLink')}
-                  </Link>
-                  <Link
-                    href="/map"
-                    onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/map'
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
-                    }`}
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                    </svg>
-                    {t('districtMapLink')}
-                  </Link>
-                  <button
-                    onClick={() => {
-                      logout();
-                      closeSidebar();
-                    }}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white bg-red-500 hover:bg-red-600 transition-colors font-medium"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    {t('logout')}
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/"
-                    onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/' 
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
-                    }`}
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                     {t('homeLink')}
@@ -238,13 +168,11 @@ export default function Navbar() {
                   <Link
                     href="/submissions"
                     onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/submissions'
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                      pathname === '/submissions' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
                     {t('browseLink')}
@@ -252,13 +180,11 @@ export default function Navbar() {
                   <Link
                     href="/map"
                     onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/map'
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                      pathname === '/map' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                     </svg>
                     {t('districtMapLink')}
@@ -266,52 +192,118 @@ export default function Navbar() {
                   <Link
                     href="/student/submit"
                     onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/student/submit'
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                      pathname === '/student/submit' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     {t('studentForm')}
                   </Link>
+                </div>
+              </div>
+
+              {/* DONOR Section */}
+              <div>
+                <h3 className="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider px-4">{t('menuDonor')}</h3>
+                <div className="space-y-1">
+                  {user ? (
+                    <>
+                      <Link
+                        href={user.role === 'admin' ? '/admin/dashboard' : '/donor/dashboard'}
+                        onClick={closeSidebar}
+                        className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                          pathname === '/admin/dashboard' || pathname === '/donor/dashboard'
+                             ? 'bg-blue-50 text-blue-600' 
+                             : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
+                      >
+                        <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        {t('dashboard')}
+                      </Link>
+                      <button
+                        onClick={() => {
+                          logout();
+                          closeSidebar();
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors font-medium"
+                      >
+                        <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        {t('logout')}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/donor/login"
+                        onClick={closeSidebar}
+                        className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                          pathname === '/donor/login' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
+                      >
+                        <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        {t('donorLogin')}
+                      </Link>
+                      <Link
+                        href="/donor/register"
+                        onClick={closeSidebar}
+                        className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                          pathname === '/donor/register' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
+                      >
+                        <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                        </svg>
+                        {t('donorRegister')}
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* INFO Section */}
+              <div>
+                <h3 className="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider px-4">{t('menuInfo')}</h3>
+                <div className="space-y-1">
                   <Link
-                    href="/donor/login"
+                    href="/about"
                     onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/donor/login'
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                      pathname === '/about' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                    <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    {t('donorLogin')}
+                    {t('aboutLink')}
                   </Link>
                   <Link
-                    href="/donor/register"
+                    href="/contact"
                     onClick={closeSidebar}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${
-                      pathname === '/donor/register'
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-medium ${
+                      pathname === '/contact' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    {t('donorRegister')}
+                    {t('contactLink')}
                   </Link>
-                </>
-              )}
+                </div>
+              </div>
+
             </div>
 
             {/* User Info (if logged in) */}
             {user && (
-              <div className="mt-6 pt-6 border-t">
+              <div className="mt-8 pt-6 border-t">
                 <p className="text-sm text-gray-600 mb-1">{t('loggedInAs')}</p>
                 <p className="font-semibold text-gray-900">{user.name}</p>
                 <p className="text-sm text-gray-500">{user.email}</p>

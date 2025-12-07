@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
 import Loading from '@/components/Loading';
 import Alert from '@/components/Alert';
+import Footer from '@/components/Footer';
 
 interface Requirement {
   _id: string;
@@ -593,6 +594,8 @@ export default function SubmissionsPage() {
         message={alertConfig.message}
         type={alertConfig.type}
       />
+
+      <Footer />
     </div>
   );
 }

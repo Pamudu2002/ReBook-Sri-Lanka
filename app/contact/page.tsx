@@ -3,6 +3,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Image from 'next/image';
+import Footer from '@/components/Footer';
 
 export default function ContactPage() {
   const { t } = useLanguage();
@@ -84,6 +85,8 @@ export default function ContactPage() {
         </div>
 
       </section>
+
+      <Footer />
     </div>
   );
 }

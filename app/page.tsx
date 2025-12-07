@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import FaqSection from '@/components/FaqSection';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   const { t } = useLanguage();
@@ -249,15 +250,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8 md:py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-lg md:text-xl font-semibold mb-2">{t('appName')}</p>
-            <p className="text-sm md:text-base text-gray-400 mb-4">{t('appTagline')}</p>
-            <p className="text-xs md:text-sm text-gray-500">© 2025 ReBook Sri Lanka. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

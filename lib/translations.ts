@@ -287,6 +287,12 @@ export const translations = {
     faqA4: 'ReBook Sri Lanka acts as the connector. Once a donor selects a student to help, they can communicate to arrange delivery. Donors typically send items via local courier, post, or—if they live nearby—arrange a safe handover.',
     faqQ5: 'Is there a fee to use this service?',
     faqA5: 'No. ReBook Sri Lanka is 100% free for both students and donors. We are a community-driven project dedicated to restoring education after the disaster.',
+
+    // Footer
+    footerQuickLinks: 'Quick Links',
+    footerAllRightsReserved: 'All rights reserved.',
+    footerPrivacyPolicy: 'Privacy Policy',
+    footerTermsOfService: 'Terms of Service',
   },
   
   si: {
@@ -577,6 +583,12 @@ export const translations = {
     faqA4: 'රීබුක් ශ්‍රී ලංකාව සම්බන්ධකයා ලෙස ක්‍රියා කරයි. දායකයෙකු උපකාර කිරීමට ශිෂ්‍යයෙකු තෝරාගත් පසු, ඔවුන්ට බෙදාහැරීම සකස් කිරීමට සන්නිවේදනය කළ හැකිය. දායකයින් සාමාන්‍යයෙන් ප්‍රාදේශීය කුරියර්, තැපැල් හරහා හෝ – ඔවුන් අසල පදිංචි නම් – ආරක්ෂිත භාර දීමක් සකස් කරයි.',
     faqQ5: 'මෙම සේවාව භාවිතා කිරීමට ගාස්තුවක් තිබේද?',
     faqA5: 'නැත. රීබුක් ශ්‍රී ලංකාව සිසුන් සහ දායකයින් දෙපාර්ශ්වයටම 100% නොමිලේ. අපි ආපදාවෙන් පසු අධ්‍යාපනය ප්‍රතිස්ථාපනය කිරීමට කැපවූ ප්‍රජා-මෙහෙයවන ව්‍යාපෘතියකි.',
+
+    // Footer
+    footerQuickLinks: 'ක්ෂණික සබැඳි',
+    footerAllRightsReserved: 'සියලු හිමිකම් ඇවිරිණි.',
+    footerPrivacyPolicy: 'පෞද්ගලිකත්ව ප්‍රතිපත්තිය',
+    footerTermsOfService: 'සේවා නියමයන්',
   },
   
   ta: {
@@ -867,6 +879,12 @@ export const translations = {
     faqA4: 'ரீபுக் இலங்கை இணைப்பாளராக செயல்படுகிறது. ஒரு நன்கொடையாளர் உதவ ஒரு மாணவரைத் தேர்ந்தெடுத்தவுடன், அவர்கள் விநியோகத்தை ஏற்பாடு செய்ய தொடர்பு கொள்ளலாம். நன்கொடையாளர்கள் பொதுவாக உள்ளூர் கூரியர், தபால் அல்லது – அருகில் வசித்தால் – பாதுகாப்பான கையளிப்பை ஏற்பாடு செய்கின்றனர்.',
     faqQ5: 'இந்த சேவையைப் பயன்படுத்த கட்டணம் உள்ளதா?',
     faqA5: 'இல்லை. ரீபுக் இலங்கை மாணவர்கள் மற்றும் நன்கொடையாளர்கள் இருவருக்கும் 100% இலவசம். நாங்கள் பேரிடருக்குப் பிறகு கல்வியை மீட்டெடுக்க அர்ப்பணிக்கப்பட்ட சமூகம்-இயக்கும் திட்டமாகும்.',
+
+    // Footer
+    footerQuickLinks: 'விரைவு இணைப்புகள்',
+    footerAllRightsReserved: 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
+    footerPrivacyPolicy: 'தனியுரிமைக் கொள்கை',
+    footerTermsOfService: 'சேவை விதிமுறைகள்',
   },
 };
 

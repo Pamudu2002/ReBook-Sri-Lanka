@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function AboutPage() {
   const { t } = useLanguage();
@@ -198,6 +199,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

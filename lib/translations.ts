@@ -230,6 +230,19 @@ export const translations = {
     browseLink: 'Browse Requirements',
     districtMapLink: 'District Map',
     loggedInAs: 'Logged in as',
+    
+    // New Menu Sections
+    menuMain: 'Main',
+    menuDonor: 'Donor',
+    menuInfo: 'Info',
+    
+    // New Pages
+    aboutLink: 'About Us',
+    contactLink: 'Contact Us',
+    aboutPageTitle: 'About ReBook Sri Lanka',
+    contactPageTitle: 'Contact Us',
+    aboutPageContent: 'ReBook Sri Lanka helps flood-affected students by connecting them with donors who can provide essential educational materials.',
+    contactPageContent: 'Get in touch with us for more information or support.',
   },
   
   si: {
@@ -463,6 +476,19 @@ export const translations = {
     browseLink: 'අවශ්‍යතා බලන්න',
     districtMapLink: 'දිස්ත්‍රික්ක සිතියම',
     loggedInAs: 'ලෙස පුරනය වී ඇත',
+    
+    // New Menu Sections
+    menuMain: 'ප්‍රධාන',
+    menuDonor: 'දායක',
+    menuInfo: 'තොරතුරු',
+    
+    // New Pages
+    aboutLink: 'අප ගැන',
+    contactLink: 'අප අමතන්න',
+    aboutPageTitle: 'රීබුක් ශ්‍රී ලංකා ගැන',
+    contactPageTitle: 'අප අමතන්න',
+    aboutPageContent: 'රීබුක් ශ්‍රී ලංකාව අත්‍යවශ්‍ය අධ්‍යාපන ද්‍රව්‍ය ලබා දිය හැකි දායකයින් සමඟ සම්බන්ධ කිරීමෙන් ගංවතුරෙන් පීඩාවට පත් සිසුන්ට උපකාර කරයි.',
+    contactPageContent: 'වැඩි විස්තර හෝ සහාය සඳහා අප හා සම්බන්ධ වන්න.',
   },
   
   ta: {
@@ -696,6 +722,19 @@ export const translations = {
     browseLink: 'தேவைகளை உலாவவும்',
     districtMapLink: 'மாவட்ட வரைபடம்',
     loggedInAs: 'என உள்நுழைந்துள்ளது',
+    
+    // New Menu Sections
+    menuMain: 'பிரதான',
+    menuDonor: 'நன்கொடையாளர்',
+    menuInfo: 'தகவல்',
+    
+    // New Pages
+    aboutLink: 'எங்களைப் பற்றி',
+    contactLink: 'எங்களை தொடர்பு கொள்ள',
+    aboutPageTitle: 'ரீபுக் இலங்கை பற்றி',
+    contactPageTitle: 'எங்களை தொடர்பு கொள்ள',
+    aboutPageContent: 'ரீபுக் இலங்கை வெள்ளத்தால் பாதிக்கப்பட்ட மாணவர்களுக்கு அத்தியாவசிய கல்விப் பொருட்களை வழங்கக்கூடிய நன்கொடையாளர்களுடன் இணைப்பதன் மூலம் உதவுகிறது.',
+    contactPageContent: 'மேலும் தகவல் அல்லது ஆதரவுக்காக எங்களைத் தொடர்பு கொள்ளவும்.',
   },
 };
 

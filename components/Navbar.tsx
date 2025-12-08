@@ -41,7 +41,7 @@ export default function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6">
               {/* Language Switcher */}
-              <div className="flex md:hidden space-x-1 bg-gray-100 rounded-lg p-1">
+              <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
@@ -127,7 +127,7 @@ export default function Navbar() {
           {/* Sidebar Content */}
           <div className="flex-1 overflow-y-auto p-6">
             {/* Language Switcher */}
-            <div className="mb-8">
+            <div className="mb-8 md:hidden">
               <h3 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">Language</h3>
               <div className="grid grid-cols-3 gap-2">
                 {languages.map((lang) => (

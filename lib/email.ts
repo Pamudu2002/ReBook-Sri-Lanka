@@ -1,9 +1,11 @@
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 
-// Create reusable transporter
+// Create reusable transporter for private email server
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: process.env.EMAIL_HOST,
+  port: parseInt(process.env.EMAIL_PORT || '587'),
+  secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,

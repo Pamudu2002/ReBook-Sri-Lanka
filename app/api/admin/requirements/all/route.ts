@@ -28,9 +28,53 @@ export async function GET(request: NextRequest) {
 
     await connectDB();
 
-    // Fetch all requirements (not just pending)
-    const requirements = await Requirement.find({})
-      .sort({ submittedAt: -1 })
+    const searchParams = request.nextUrl.searchParams;
+    const name = searchParams.get('name');
+    const district = searchParams.get('district');
+    const status = searchParams.get('status');
+    const age = searchParams.get('age');
+    const sortBy = searchParams.get('sortBy');
+
+    const query: any = {};
+
+    if (name) {
+      query.studentName = { $regex: name, $options: 'i' };
+    }
+
+    if (district) {
+      query.district = district;
+    }
+
+    if (status) {
+      query.status = status;
+    }
+
+    if (age) {
+      query.age = parseInt(age);
+    }
+
+    let sort: any = { submittedAt: -1 }; // Default sort
+
+    if (sortBy) {
+      switch (sortBy) {
+        case 'oldest':
+          sort = { submittedAt: 1 };
+          break;
+        case 'newest':
+          sort = { submittedAt: -1 };
+          break;
+        case 'name':
+          sort = { studentName: 1 };
+          break;
+        case 'age':
+          sort = { age: 1 };
+          break;
+      }
+    }
+
+    // Fetch all requirements with filters and sort
+    const requirements = await Requirement.find(query)
+      .sort(sort)
       .lean();
 
     return NextResponse.json({

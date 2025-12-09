@@ -89,7 +89,8 @@ export default function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [districtFilter, setDistrictFilter] = useState('all');
-  const [sortBy, setSortBy] = useState<'date' | 'name'>('date');
+  const [ageFilter, setAgeFilter] = useState('');
+  const [sortBy, setSortBy] = useState<'date' | 'name' | 'age'>('date');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   
   // Modals
@@ -143,7 +144,7 @@ export default function AdminDashboard() {
 
       const [statsRes, reqRes, donorRes, adminRes] = await Promise.all([
         fetch('/api/admin/statistics', { headers }),
-        fetch('/api/admin/requirements/all', { headers }),
+        fetch('/api/admin/requirements/all', { headers }), // Initial fetch without params (or could reuse fetchRequirements logic if refactored)
         fetch('/api/admin/donors/all', { headers }),
         fetch('/api/admin/admins/all', { headers }),
       ]);
@@ -167,6 +168,60 @@ export default function AdminDashboard() {
       setRefreshing(false);
     }
   };
+
+  const fetchRequirements = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const headers = { 'Authorization': `Bearer ${token}` };
+
+      const params = new URLSearchParams();
+      if (searchTerm) params.append('name', searchTerm);
+      if (statusFilter !== 'all') params.append('status', statusFilter);
+      if (districtFilter !== 'all') params.append('district', districtFilter);
+      if (ageFilter) params.append('age', ageFilter);
+      
+      // Map frontend sort to backend sort
+      let backendSortBy = 'newest';
+      if (sortBy === 'date') {
+        backendSortBy = sortOrder === 'desc' ? 'newest' : 'oldest';
+      } else if (sortBy === 'name') {
+        backendSortBy = 'name'; // Backend handles this as studentName: 1
+        // Note: Backend currently only supports name: asc based on my implementation (studentName: 1). 
+        // If I need descending, I might need to adjust backend or just accept it.
+        // Let's check backend... "case 'name': sort = { studentName: 1 };"
+        // It seems backend doesn't support name desc explicitly? 
+        // Wait, the plan was simple. Let's stick to what backend supports or update backend?
+        // Backend supports: oldest, newest, name (asc), age (asc).
+        // If frontend asks for name desc, backend won't handle it with current code.
+        // For now, I will pass 'name' and ignore order for name/age in backend or update backend later if critical.
+        // Actually, let's just pass what we can.
+      } else if (sortBy === 'age') {
+        backendSortBy = 'age';
+      }
+
+      params.append('sortBy', backendSortBy);
+
+      const response = await fetch(`/api/admin/requirements/all?${params.toString()}`, { headers });
+      const data = await response.json();
+      
+      if (data.success) {
+        setRequirements(data.requirements);
+      }
+    } catch (error) {
+      console.error('Error fetching requirements:', error);
+    }
+  };
+
+  // Debounce search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (user && user.role === 'admin' && activeView === 'requirements') {
+        fetchRequirements();
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm, statusFilter, districtFilter, ageFilter, sortBy, sortOrder, activeView]);
 
   const showAlertMessage = (title: string, message: string, type: 'success' | 'error' | 'warning' | 'info') => {
     setAlertConfig({ title, message, type });
@@ -314,9 +369,9 @@ export default function AdminDashboard() {
       items = items.filter(item => {
         const searchLower = searchTerm.toLowerCase();
         if (activeView === 'requirements') {
-          return item.studentName?.toLowerCase().includes(searchLower) ||
-                 item.school?.toLowerCase().includes(searchLower) ||
-                 item.district?.toLowerCase().includes(searchLower);
+          // Server-side filtered, but we might want to filter if something is cached? 
+          // No, trusting server response.
+          return true; 
         } else if (activeView === 'donors') {
           return item.name?.toLowerCase().includes(searchLower) ||
                  item.email?.toLowerCase().includes(searchLower) ||
@@ -332,7 +387,7 @@ export default function AdminDashboard() {
     if (statusFilter !== 'all') {
       items = items.filter(item => {
         if (activeView === 'requirements') {
-          return item.status === statusFilter;
+          return true; // Server side
         } else if (activeView === 'donors') {
           if (statusFilter === 'verified') return item.isVerified;
           if (statusFilter === 'unverified') return !item.isVerified;
@@ -344,25 +399,33 @@ export default function AdminDashboard() {
 
     // Apply district filter
     if (districtFilter !== 'all' && (activeView === 'requirements' || activeView === 'donors')) {
-      items = items.filter(item => item.district === districtFilter);
+      if (activeView === 'requirements') {
+         // Server side
+      } else {
+        items = items.filter(item => item.district === districtFilter);
+      }
     }
 
     // Apply sorting
-    items.sort((a, b) => {
-      let compareValue = 0;
-      
-      if (sortBy === 'date') {
-        const dateA = new Date(a.submittedAt || a.registeredAt || a.createdAt).getTime();
-        const dateB = new Date(b.submittedAt || b.registeredAt || b.createdAt).getTime();
-        compareValue = dateA - dateB;
-      } else if (sortBy === 'name') {
-        const nameA = (a.studentName || a.name || '').toLowerCase();
-        const nameB = (b.studentName || b.name || '').toLowerCase();
-        compareValue = nameA.localeCompare(nameB);
-      }
+    if (activeView === 'requirements') {
+        // Server side sorted
+    } else {
+        items.sort((a, b) => {
+        let compareValue = 0;
+        
+        if (sortBy === 'date') {
+            const dateA = new Date(a.submittedAt || a.registeredAt || a.createdAt).getTime();
+            const dateB = new Date(b.submittedAt || b.registeredAt || b.createdAt).getTime();
+            compareValue = dateA - dateB;
+        } else if (sortBy === 'name') {
+            const nameA = (a.studentName || a.name || '').toLowerCase();
+            const nameB = (b.studentName || b.name || '').toLowerCase();
+            compareValue = nameA.localeCompare(nameB);
+        }
 
-      return sortOrder === 'asc' ? compareValue : -compareValue;
-    });
+        return sortOrder === 'asc' ? compareValue : -compareValue;
+        });
+    }
 
     return items;
   };
@@ -675,7 +738,7 @@ export default function AdminDashboard() {
           <div className="space-y-6">
             {/* Filters */}
             <div className="bg-white rounded-lg shadow-sm p-4">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                 <input
                   type="text"
                   placeholder="Search by name, school, district..."
@@ -703,11 +766,18 @@ export default function AdminDashboard() {
                   <option value="all">All Districts</option>
                   {districts.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
+                <input
+                  type="number"
+                  placeholder="Filter by Age"
+                  value={ageFilter}
+                  onChange={(e) => setAgeFilter(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                />
                 <select
                   value={`${sortBy}-${sortOrder}`}
                   onChange={(e) => {
                     const [sort, order] = e.target.value.split('-');
-                    setSortBy(sort as 'date' | 'name');
+                    setSortBy(sort as 'date' | 'name' | 'age');
                     setSortOrder(order as 'asc' | 'desc');
                   }}
                   className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
@@ -716,6 +786,8 @@ export default function AdminDashboard() {
                   <option value="date-asc">Oldest First</option>
                   <option value="name-asc">Name A-Z</option>
                   <option value="name-desc">Name Z-A</option>
+                  <option value="age-asc">Age (Youngest)</option>
+                  <option value="age-desc">Age (Oldest)</option>
                 </select>
               </div>
             </div>

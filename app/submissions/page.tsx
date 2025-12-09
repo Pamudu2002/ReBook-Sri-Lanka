@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
@@ -53,6 +53,7 @@ export default function SubmissionsPage() {
     message: string;
     type: 'success' | 'error' | 'warning' | 'info';
   }>({ title: '', message: '', type: 'info' });
+  const cardSectionRef = useRef<HTMLDivElement>(null);
 
   const districts = [
     'Colombo', 'Gampaha', 'Kalutara', 'Kandy', 'Matale', 'Nuwara Eliya',
@@ -103,6 +104,12 @@ export default function SubmissionsPage() {
     } finally {
       setInitialLoading(false);
       setIsFetching(false);
+    }
+  };
+
+  const scrollToCards = () => {
+    if (cardSectionRef.current) {
+      cardSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -198,7 +205,7 @@ export default function SubmissionsPage() {
 
         {/* Filter Tabs */}
         {/* Filter Section */}
-        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-8">
+        <div ref={cardSectionRef} className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-8">
           <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mb-6">
             {/* Search Bar */}
             <div className="relative w-full md:max-w-md">
@@ -421,7 +428,7 @@ export default function SubmissionsPage() {
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                onClick={() => { setCurrentPage(prev => Math.max(1, prev - 1)); scrollToCards(); }}
                 disabled={currentPage === 1}
                 className="px-3 py-2 rounded-lg border-2 border-gray-200 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
@@ -446,7 +453,7 @@ export default function SubmissionsPage() {
                   return (
                     <button
                       key={pageNum}
-                      onClick={() => setCurrentPage(pageNum)}
+                      onClick={() => { setCurrentPage(pageNum); scrollToCards(); }}
                       className={`w-10 h-10 rounded-lg text-sm font-medium transition-all ${
                         currentPage === pageNum
                           ? 'bg-primary-600 text-white shadow-md'
@@ -460,7 +467,7 @@ export default function SubmissionsPage() {
               </div>
               
               <button
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                onClick={() => { setCurrentPage(prev => Math.min(totalPages, prev + 1)); scrollToCards(); }}
                 disabled={currentPage === totalPages}
                 className="px-3 py-2 rounded-lg border-2 border-gray-200 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >

@@ -39,9 +39,10 @@ export async function GET(request: NextRequest) {
     const statusFilter = searchParams.get('status') || 'all';
     const districtFilter = searchParams.get('district') || 'all';
     
-    // Use provided seed or generate new one based on current time
+    // Use provided seed or generate new one based on current time (quantized to 5 minutes)
     const seedParam = searchParams.get('seed');
-    const seed = seedParam ? parseInt(seedParam) : Date.now();
+    // 5 minutes in milliseconds = 300,000
+    const seed = seedParam ? parseInt(seedParam) : Math.floor(Date.now() / 300000);
 
     const skip = (page - 1) * limit;
     

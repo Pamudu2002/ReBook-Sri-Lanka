@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '12');
     const statusFilter = searchParams.get('status') || 'all';
     const districtFilter = searchParams.get('district') || 'all';
+    const nameFilter = searchParams.get('name') || '';
     
     // Use provided seed or generate new one based on current time (quantized to 5 minutes)
     const seedParam = searchParams.get('seed');
@@ -83,6 +84,11 @@ export async function GET(request: NextRequest) {
     // Apply district filter
     if (districtFilter !== 'all') {
       query.district = districtFilter;
+    }
+
+    // Apply name filter
+    if (nameFilter) {
+      query.studentName = { $regex: nameFilter, $options: 'i' };
     }
     
     // Get total count for pagination

@@ -37,9 +37,11 @@ export default function SubmissionsPage() {
   const { user } = useAuth();
   const router = useRouter();
   const [requirements, setRequirements] = useState<Requirement[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [filter, setFilter] = useState<'all' | 'open' | 'in-progress' | 'completed'>('all');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('all');
+  const [searchName, setSearchName] = useState('');
   const [selectedRequirement, setSelectedRequirement] = useState<Requirement | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -61,12 +63,22 @@ export default function SubmissionsPage() {
   ];
 
   useEffect(() => {
-    fetchRequirements();
-  }, [user, currentPage, filter, selectedDistrict]);
+    const timer = setTimeout(() => {
+      fetchRequirements();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [user, currentPage, filter, selectedDistrict, searchName]);
 
   const fetchRequirements = async () => {
     try {
-      setLoading(true);
+      if (initialLoading) {
+        // Only show full screen loader on first mount
+        // We don't set isFetching here because we're already showing a loader
+      } else {
+        setIsFetching(true);
+      }
+      
       const token = localStorage.getItem('token');
       const headers: HeadersInit = {};
       if (token) {
@@ -77,7 +89,8 @@ export default function SubmissionsPage() {
         page: currentPage.toString(),
         limit: itemsPerPage.toString(),
         status: filter,
-        district: selectedDistrict
+        district: selectedDistrict,
+        name: searchName
       });
       
       const response = await fetch(`/api/requirements/browse?${params}`, { headers });
@@ -88,7 +101,8 @@ export default function SubmissionsPage() {
     } catch (error) {
       console.error('Error fetching requirements:', error);
     } finally {
-      setLoading(false);
+      setInitialLoading(false);
+      setIsFetching(false);
     }
   };
 
@@ -158,7 +172,7 @@ export default function SubmissionsPage() {
     );
   };
 
-  if (loading) {
+  if (initialLoading) {
     return (
       <div className="min-h-screen bg-gray-50 pt-20">
         <Navbar />
@@ -171,7 +185,7 @@ export default function SubmissionsPage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-20">
       <Navbar />
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
@@ -183,8 +197,53 @@ export default function SubmissionsPage() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-          <div className="flex flex-wrap gap-2 mb-4">
+        {/* Filter Section */}
+        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-8">
+          <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mb-6">
+            {/* Search Bar */}
+            <div className="relative w-full md:max-w-md">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder={t('searchByName') || 'Search by student name...'}
+                value={searchName}
+                onChange={(e) => {
+                  setSearchName(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="block w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+              />
+            </div>
+
+            {/* District Filter */}
+            <div className="w-full md:w-auto flex items-center gap-3">
+               <div className="relative w-full md:w-64">
+                <select
+                  value={selectedDistrict}
+                  onChange={(e) => { setSelectedDistrict(e.target.value); setCurrentPage(1); }}
+                  className="w-full pl-4 pr-10 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer transition-all"
+                >
+                  <option value="all">{t('allDistricts')}</option>
+                  {districts.map(district => (
+                    <option key={district} value={district}>{district}</option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Status Tabs & Clear Filter */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-gray-100">
+            <div className="flex flex-wrap gap-2">
             <button
               onClick={() => { setFilter('all'); setCurrentPage(1); }}
               className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
@@ -227,32 +286,20 @@ export default function SubmissionsPage() {
             </button>
           </div>
 
-          {/* District Filter */}
-          <div className="flex flex-wrap items-center gap-3">
-            <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              {t('district')}:
-            </label>
-            <select
-              value={selectedDistrict}
-              onChange={(e) => { setSelectedDistrict(e.target.value); setCurrentPage(1); }}
-              className="px-4 py-2 rounded-lg border-2 border-gray-200 bg-white text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 hover:border-gray-300 transition-all cursor-pointer shadow-sm"
-            >
-              <option value="all">{t('allDistricts')}</option>
-              {districts.map(district => (
-                <option key={district} value={district}>{district}</option>
-              ))}
-            </select>
-            {selectedDistrict !== 'all' && (
+            </div>
+
+            {(selectedDistrict !== 'all' || filter !== 'all' || searchName) && (
               <button
-                onClick={() => { setSelectedDistrict('all'); setCurrentPage(1); }}
-                className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1 hover:gap-1.5 transition-all"
+                onClick={() => { 
+                  setSelectedDistrict('all'); 
+                  setFilter('all'); 
+                  setSearchName('');
+                  setCurrentPage(1); 
+                }}
+                className="text-sm text-red-600 hover:text-red-700 font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-red-50 transition-all"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
                 {t('clearFilter')}
               </button>
@@ -261,7 +308,17 @@ export default function SubmissionsPage() {
         </div>
 
         {/* Requirements Grid */}
-        {filteredRequirements.length === 0 ? (
+        <div className="relative px-5 sm:px-10 md:px-15 lg:px-20">
+          {isFetching && (
+            <div className="absolute inset-0 bg-white/50 z-10 flex items-start justify-center pt-20 backdrop-blur-[1px]">
+               <div className="bg-white px-4 py-2 rounded-full shadow-lg border border-gray-100 flex items-center gap-2">
+                 <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+                 <span className="text-sm font-medium text-gray-600">Updating...</span>
+               </div>
+            </div>
+          )}
+          
+          {filteredRequirements.length === 0 ? (
           <div className="bg-white rounded shadow-md p-12 text-center">
             <svg className="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
@@ -269,14 +326,14 @@ export default function SubmissionsPage() {
             <p className="text-gray-600 text-lg">{t('noRequirementsFound')}</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className={`grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 pb-8 transition-opacity duration-200 ${isFetching ? 'opacity-50' : 'opacity-100'}`}>
             {filteredRequirements.map((req) => (
               <div
                 key={req._id}
                 className="bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col"
               >
                 {/* Card Header */}
-                <div className="bg-blue-50 border-b border-blue-100 p-3">
+                <div className="bg-blue-50 border-b border-blue-100 p-5">
                   <div className="flex justify-between items-center gap-2 mb-1">
                     <h3 className="text-base font-bold text-gray-800 truncate flex-1 min-w-0">{req.studentName}</h3>
                     <div className="flex-shrink-0">
@@ -298,7 +355,7 @@ export default function SubmissionsPage() {
                 </div>
 
                 {/* Card Body */}
-                <div className="p-3 flex flex-col flex-1">
+                <div className="p-5 flex flex-col flex-1">
                   <div className="space-y-2 mb-3">
                     <div className="flex items-center text-gray-600 text-xs">
                       <svg className="w-3 h-3 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -159,6 +159,7 @@ export const translations = {
     emailAlreadyVerified: 'Email is already verified',
     
     // Submissions Page
+    searchByName: 'Search by student name...',
     browseRequirements: 'Browse Requirements',
     studentRequirements: 'Student Requirements',
     browseRequirementsDesc: 'Browse requirements from flood-affected students and help them continue their education',
@@ -455,6 +456,7 @@ export const translations = {
     emailAlreadyVerified: 'විද්‍යුත් තැපෑල දැනටමත් සත්‍යාපනය කර ඇත',
     
     // Submissions Page
+    searchByName: 'සිසුවාගේ නම අනුව සොයන්න...',
     browseRequirements: 'අවශ්‍යතා බලන්න',
     studentRequirements: 'ශිෂ්‍ය අවශ්‍යතා',
     browseRequirementsDesc: 'ගංවතුරෙන් පීඩාවට පත් සිසුන්ගේ අවශ්‍යතා බලා ඔවුන්ට අධ්‍යාපනය දිගටම කරගෙන යාමට උදව් කරන්න',
@@ -751,6 +753,7 @@ export const translations = {
     emailAlreadyVerified: 'மின்னஞ்சல் ஏற்கனவே சரிபார்க்கப்பட்டுள்ளது',
     
     // Submissions Page
+    searchByName: 'மாணவர் பெயரால் தேடுக...',
     browseRequirements: 'தேவைகளை உலாவவும்',
     studentRequirements: 'மாணவர் தேவைகள்',
     browseRequirementsDesc: 'வெள்ளத்தால் பாதிக்கப்பட்ட மாணவர்களின் தேவைகளை உலாவி அவர்களின் கல்வியைத் தொடர உதவுங்கள்',

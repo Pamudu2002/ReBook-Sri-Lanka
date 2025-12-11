@@ -315,7 +315,7 @@ export default function SubmissionsPage() {
         </div>
 
         {/* Requirements Grid */}
-        <div className="relative px-5 sm:px-10 md:px-15 lg:px-20">
+        <div className="relative mt-8 px-4 sm:px-8 lg:px-12">
           {isFetching && (
             <div className="absolute inset-0 bg-white/50 z-10 flex items-start justify-center pt-20 backdrop-blur-[1px]">
                <div className="bg-white px-4 py-2 rounded-full shadow-lg border border-gray-100 flex items-center gap-2">
@@ -333,7 +333,7 @@ export default function SubmissionsPage() {
             <p className="text-gray-600 text-lg">{t('noRequirementsFound')}</p>
           </div>
         ) : (
-          <div className={`grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 pb-8 transition-opacity duration-200 ${isFetching ? 'opacity-50' : 'opacity-100'}`}>
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-8 transition-opacity duration-200 ${isFetching ? 'opacity-50' : 'opacity-100'}`}>
             {filteredRequirements.map((req) => (
               <div
                 key={req._id}

@@ -186,10 +186,10 @@ export default function Footer() {
                 </div>
                 <div>
                   <a 
-                    href="mailto:rebooksrilanka@gmail.com" 
+                    href="mailto:info@rebooksl.support" 
                     className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                   >
-                    rebooksrilanka@gmail.com
+                    info@rebooksl.support
                   </a>
                 </div>
               </li>

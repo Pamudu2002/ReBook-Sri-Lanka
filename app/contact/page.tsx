@@ -77,7 +77,7 @@ export default function ContactPage() {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">Email Us</h3>
             <div className="space-y-1 text-gray-600">
-              <p className="font-medium text-blue-600 hover:underline">rebooksrilanka@gmail.com</p>
+              <p className="font-medium text-blue-600 hover:underline">info@rebooksl.support</p>
               <p className="text-sm text-gray-400 mt-2">We reply within 24 hours</p>
             </div>
           </div>

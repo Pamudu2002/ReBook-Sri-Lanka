@@ -315,7 +315,7 @@ export default function SubmissionsPage() {
         </div>
 
         {/* Requirements Grid */}
-        <div className="relative mt-8 px-4 sm:px-8 lg:px-12">
+        <div className="relative px-4 sm:px-8 lg:px-12">
           {isFetching && (
             <div className="absolute inset-0 bg-white/50 z-10 flex items-start justify-center pt-20 backdrop-blur-[1px]">
                <div className="bg-white px-4 py-2 rounded-full shadow-lg border border-gray-100 flex items-center gap-2">

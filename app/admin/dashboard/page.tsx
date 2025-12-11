@@ -84,6 +84,7 @@ export default function AdminDashboard() {
   const [statistics, setStatistics] = useState<Statistics | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [filteredCount, setFilteredCount] = useState(0);
   
   // Filters
   const [searchTerm, setSearchTerm] = useState('');
@@ -160,6 +161,7 @@ export default function AdminDashboard() {
       setRequirements(reqData.requirements || []);
       setDonors(donorData.donors || []);
       setAdmins(adminData.admins || []);
+      setFilteredCount(reqData.totalCount || 0);
     } catch (error) {
       console.error('Error fetching data:', error);
       showAlertMessage('Error', 'Failed to fetch data', 'error');
@@ -206,6 +208,7 @@ export default function AdminDashboard() {
       
       if (data.success) {
         setRequirements(data.requirements);
+        setFilteredCount(data.totalCount || 0);
       }
     } catch (error) {
       console.error('Error fetching requirements:', error);
@@ -505,7 +508,7 @@ export default function AdminDashboard() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Requirements ({statistics?.requirements.total || 0})
+                Requirements ({filteredCount || 0})
               </div>
             </button>
             <button

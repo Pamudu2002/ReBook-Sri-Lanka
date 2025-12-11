@@ -77,9 +77,12 @@ export async function GET(request: NextRequest) {
       .sort(sort)
       .lean();
 
+    const totalCount = await Requirement.countDocuments(query);
+
     return NextResponse.json({
       success: true,
       requirements,
+      totalCount,
     });
   } catch (error) {
     console.error('Error fetching all requirements:', error);
